@@ -4,7 +4,7 @@ import { Button, Container, Divider, Segment, Grid, Form, Header} from 'semantic
 class Login extends React.Component {
 
     loginDM = (e) => {
-        fetch('http://localhost:3001')
+        fetch('http://localhost:3001/dm_login')
     }
 
 
