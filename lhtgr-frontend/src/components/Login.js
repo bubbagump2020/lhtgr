@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Divider, Segment, Grid, Form, Header} from 'semantic-ui-react';
 
 export function Login(props) {
+    console.log("hi!")
 
     const [ dm, changeDM ] = useState({
         username: '',
@@ -13,9 +14,9 @@ export function Login(props) {
         password: ''
     })
 
-    async function loginDM(e){
+    function loginDM(e){
         e.preventDefault()
-        let response = await fetch('http://localhost:3001/dm_login', {
+        fetch('http://localhost:3001/dm_login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,17 +25,19 @@ export function Login(props) {
                 username: dm.username,
                 password: dm.password
             })
-        })
-        let { success, id, token } = await response.json()
-        if(success){
-            localStorage.setItem('token', token)
-            props.history.push(`/dungeon_masters/${id}`)
-        }
+        }).then(response => response.json())
+          .then(data => {
+                console.log(data)
+                if(data.success){
+                    localStorage.setItem('token', data.token)
+                    props.history.push(`/dungeon_masters/${data.id}`)
+                }
+          } )
     }
 
-    async function loginPlayer(e){
+    function loginPlayer(e){
         e.preventDefault()
-        let response = await fetch('http://localhost:3001/player_login', {
+        fetch('http://localhost:3001/player_login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -43,12 +46,15 @@ export function Login(props) {
                 username: player.username,
                 password: player.password
             })
-        })
-        let { success, id, token } = await response.json()
-        if(success){
-            localStorage.setItem('token', token)
-            props.history.push(`/players/${id}`)
-        }
+        }).then(response => response.json())
+          .then(data => {
+              console.log(data)
+              if(data.success){
+                  localStorage.setItem('token', data.token)
+                  props.history.push(`/players/${data.id}`)
+              }
+          })
+       
     }
 
     return(
