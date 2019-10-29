@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Container, Divider, Segment, Grid, Form, Header} from 'semantic-ui-react';
+import { Button, Divider, Segment, Grid, Form, Header} from 'semantic-ui-react';
 
 export function Login(props) {
 
@@ -8,28 +8,14 @@ export function Login(props) {
         password: ''
     })
 
-    // async function loginDM(e) {
-    //     e.preventDefault()
-    //     let response = fetch('http://localhost:3001/dm_login', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             username: dm.username,
-    //             password: dm.password
-    //         })
-    //     })
-    //     let { success, id, token } = await response.json()
-    //     if(success){
-    //         localStorage.setItem('token', token)
-    //         props.history.push(`/dungeon_masters/${id}`)
-    //     }
-    // }
+    const [ player, changePlayer ] = useState({
+        username: '',
+        password: ''
+    })
 
     async function loginDM(e){
         e.preventDefault()
-        let response = await fetch('http://localhost:3001/login', {
+        let response = await fetch('http://localhost:3001/dm_login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -43,6 +29,25 @@ export function Login(props) {
         if(success){
             localStorage.setItem('token', token)
             props.history.push(`/dungeon_masters/${id}`)
+        }
+    }
+
+    async function loginPlayer(e){
+        e.preventDefault()
+        let response = await fetch('http://localhost:3001/player_login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: player.username,
+                password: player.password
+            })
+        })
+        let { success, id, token } = await response.json()
+        if(success){
+            localStorage.setItem('token', token)
+            props.history.push(`/players/${id}`)
         }
     }
 
@@ -64,15 +69,15 @@ export function Login(props) {
                     </Form>
                 </Grid.Column>
                 <Grid.Column>
-                    <Form>
+                    <Form onSubmit={loginPlayer}>
                         <Header as ="h1">Player Login</Header>
                         <Form.Field>
                             <label>Username</label>
-                            <input placeholder="Username" />
+                            <input placeholder="Username" type="text" value={player.username} onChange={ e => changePlayer({ ...player, username: e.target.value })} />
                         </Form.Field>
                         <Form.Field>
                             <label>Password</label>
-                            <input placeholder="Password" />
+                            <input placeholder="Password" type="password" value={player.password} onChange={ e => changePlayer({ ...player, password: e.target.value })} />
                         </Form.Field>
                         <Button type="submit">Login</Button>
                     </Form>
