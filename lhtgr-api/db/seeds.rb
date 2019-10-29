@@ -13,6 +13,7 @@ dungeon_master = DungeonMaster.create(
 
 Player.destroy_all
 player1 = Player.create(
+    dungeon_master_id: dungeon_master.id,
     username: 'player1',
     password: 'password'
 )
