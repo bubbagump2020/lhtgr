@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 // import store from './store'
 import  { Login } from './components/Login'
-import DungeonMasterPage from './components/DungeonMasterPage'
-import PlayerPage from './components/PlayerPage'
+import DungeonMasterPage from './components/DungeonMaster/DungeonMasterPage'
+import PlayerPage from './components/Player/PlayerPage'
 
 
 function App() {

@@ -9,6 +9,14 @@ class PlayersController < ApplicationController
         render json: Player.all
     end
 
+    def new
+
+    end
+
+    def create
+        
+    end
+
     def show
         render json: current_player
     end
@@ -28,5 +36,5 @@ class PlayersController < ApplicationController
     def current_player
         @current_player
     end
-    
+
 end
