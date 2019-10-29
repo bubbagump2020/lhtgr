@@ -10,3 +10,9 @@ dungeon_master = DungeonMaster.create(
     username: 'admin',
     password: 'password'
 )
+
+Player.destroy_all
+player1 = Player.create(
+    username: 'player1',
+    password: 'password'
+)
