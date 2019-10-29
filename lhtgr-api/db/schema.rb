@@ -16,16 +16,20 @@ ActiveRecord::Schema.define(version: 2019_10_29_163537) do
   enable_extension "plpgsql"
 
   create_table "campaigns", force: :cascade do |t|
+    t.bigint "dungeon_master_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["dungeon_master_id"], name: "index_campaigns_on_dungeon_master_id"
   end
 
   create_table "characters", force: :cascade do |t|
+    t.bigint "player_id"
     t.string "name"
     t.string "class"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_characters_on_player_id"
   end
 
   create_table "dungeon_masters", force: :cascade do |t|
@@ -36,10 +40,12 @@ ActiveRecord::Schema.define(version: 2019_10_29_163537) do
   end
 
   create_table "players", force: :cascade do |t|
+    t.bigint "dungeon_master_id"
     t.string "username"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["dungeon_master_id"], name: "index_players_on_dungeon_master_id"
   end
 
 end
