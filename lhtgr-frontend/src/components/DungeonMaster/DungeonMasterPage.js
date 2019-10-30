@@ -4,16 +4,20 @@ import PlayerCard from '../Player/PlayerCard'
 import { Route, Link } from 'react-router-dom'
 import PlayerForm from '../Player/PlayerForm'
 import CampaignForm from '../Campaign/CampaignForm'
+import { useSelector } from 'react-redux'
+
+
 
 class DungeonMasterPage extends React.Component {
 
+    
     constructor(){
         super()
         this.state = {
             players: []
         }
     }
-
+    
     componentDidMount = ()=>{
         fetch('http://localhost:3001/players')
             .then(response => response.json())
@@ -37,6 +41,7 @@ class DungeonMasterPage extends React.Component {
 
 
     render(){
+        
         return(
             <Container fluid>
                 <Segment textAlign="center">
@@ -47,9 +52,6 @@ class DungeonMasterPage extends React.Component {
                 <Card.Group align="left">
                     <PlayerCard players={this.state.players} />
                 </Card.Group>
-                <Grid  textAlign="center">
-                    
-                </Grid>
             </Container>
         )
     }
