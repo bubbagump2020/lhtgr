@@ -6,7 +6,7 @@ class PlayerCard extends React.Component {
     displayPlayerCards = () => {
         return this.props.players.map(player => {
             return(
-                <Card key={player.id} style={{backgroundColor: "#006600"}, {textColor: "white"}}>
+                <Card key={player.id} style={{backgroundColor: "#cc6600"}}>
                     <Card.Content>
                         <Card.Header>{player.username}</Card.Header>
                     </Card.Content>
