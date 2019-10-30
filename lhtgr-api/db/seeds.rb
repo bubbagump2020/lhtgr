@@ -17,3 +17,14 @@ player1 = Player.create(
     username: 'player1',
     password: 'password'
 )
+player2 = Player.create(
+    dungeon_master_id: dungeon_master.id,
+    username: 'player2',
+    password: 'password'
+)
+
+player3 = Player.create(
+    dungeon_master_id: dungeon_master.id,
+    username: 'player3',
+    password: 'password'
+)

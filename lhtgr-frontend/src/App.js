@@ -13,9 +13,9 @@ function App() {
       <BrowserRouter>
         < Route exact path="/" component={Login} />
         < Route exact path="/dungeon_masters/:id" component={DungeonMasterPage} />
-        {/* < Route exact path="/players/:id" component={PlayerPage} />
+        < Route exact path="/players/:id" component={PlayerPage} />
         < Route exact path="/players/new" component={PlayerForm} />
-        < Route exact path="/campaigns/new" component={CampaignForm} /> */}
+        < Route exact path="/campaigns/new" component={CampaignForm} />
       </BrowserRouter>
     </div>
   );
