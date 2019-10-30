@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Button, Divider, Segment, Grid, Form, Header} from 'semantic-ui-react';
 
 export function Login(props) {
-    console.log("hi!")
 
     const [ dm, changeDM ] = useState({
         username: '',
@@ -27,7 +26,6 @@ export function Login(props) {
             })
         }).then(response => response.json())
           .then(data => {
-                console.log(data)
                 if(data.success){
                     localStorage.setItem('token', data.token)
                     props.history.push(`/dungeon_masters/${data.id}`)
@@ -48,7 +46,6 @@ export function Login(props) {
             })
         }).then(response => response.json())
           .then(data => {
-              console.log(data)
               if(data.success){
                   localStorage.setItem('token', data.token)
                   props.history.push(`/players/${data.id}`)
