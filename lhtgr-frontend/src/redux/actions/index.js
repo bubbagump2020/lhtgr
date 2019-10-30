@@ -1,5 +1,9 @@
-import { LOGIN } from '../constants/action-types'
+import { CREATE_PLAYER, CREATE_CAMPAIGN } from '../constants/action-types'
 
-export function login(payload){
-    return { type: LOGIN, payload }
+export function createPlayer(payload){
+    return { type: CREATE_PLAYER, payload }
+}
+
+export function createCampaign(payload){
+    return {type: CREATE_CAMPAIGN, payload}
 }

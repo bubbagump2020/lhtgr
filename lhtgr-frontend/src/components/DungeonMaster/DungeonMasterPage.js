@@ -41,7 +41,6 @@ class DungeonMasterPage extends React.Component {
 
 
     render(){
-        
         return(
             <Container fluid>
                 <Segment textAlign="center">
@@ -49,9 +48,11 @@ class DungeonMasterPage extends React.Component {
                     <Link to="/players/new">Create a Player</Link><br></br>
                     <Link to="/campaigns/new">Create a Campaign</Link>
                 </Segment>
-                <Card.Group align="left">
-                    <PlayerCard players={this.state.players} />
-                </Card.Group>
+                <Segment>
+                    <Card.Group align="left">
+                        <PlayerCard players={this.state.players} />
+                    </Card.Group>
+                </Segment>
             </Container>
         )
     }

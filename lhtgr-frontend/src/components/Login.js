@@ -27,6 +27,7 @@ export function Login(props) {
         }).then(response => response.json())
           .then(data => {
                 if(data.success){
+                    document.cookie = data.id
                     localStorage.setItem('token', data.token)
                     props.history.push(`/dungeon_masters/${data.id}`)
                 }
