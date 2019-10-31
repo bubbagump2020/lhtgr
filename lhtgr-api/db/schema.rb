@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_161220) do
+ActiveRecord::Schema.define(version: 2019_10_31_161938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 2019_10_31_161220) do
     t.string "name"
     t.string "primary_class"
     t.string "secondary_class"
+    t.integer "str"
+    t.integer "dex"
+    t.integer "con"
+    t.integer "int"
+    t.integer "wis"
+    t.integer "cha"
     t.index ["player_id"], name: "index_characters_on_player_id"
   end
 

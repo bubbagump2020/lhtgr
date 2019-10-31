@@ -1,27 +1,30 @@
 import React from 'react'
-import { Card, Header } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
+import { useSelector } from 'react-redux'
 
-class PlayerCard extends React.Component {
-
-    displayPlayerCards = () => {
-        return this.props.players.map(player => {
-            return(
-                <Card key={player.id} style={{backgroundColor: "#cc6600"}}>
-                    <Card.Content>
-                        <Card.Header>{player.username}</Card.Header>
-                    </Card.Content>
-                </Card>
-            )
-        })
-    }
-
-    render(){
+export function PlayerCard() {
+    const result = useSelector(state => state)
+    
+    if(result === undefined){
         return(
-            <Card.Group>
-                {this.displayPlayerCards()}
-            </Card.Group>
+            <di>Loading</di>
         )
+    } else {
+        if(result.players.players !== undefined){
+            return result.players.players.map(player => {
+                return(
+                    <Card key = {player.id} style={{backgroundColor: "#cc6600"}}>
+                        <Card.Content>
+                            <Card.Header>{player.username}</Card.Header>
+                        </Card.Content>
+                    </Card>
+                )
+            })
+        }
+    
     }
-}
 
-export default PlayerCard
+    return(
+        <Card.Group />
+    )
+}

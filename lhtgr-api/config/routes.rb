@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources(:dungeon_masters)
   resources(:players)
   resources(:campaigns)
+  resources(:characters)
   post('/dm_login', to: 'authentication#dm_login')
   post('/player_login', to: 'authentication#player_login')
 end

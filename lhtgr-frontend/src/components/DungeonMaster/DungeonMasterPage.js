@@ -1,17 +1,19 @@
 import React from 'react';
 import { Segment, Header, Container, Card, Form, Grid, Button } from 'semantic-ui-react';
-import PlayerCard from '../Player/PlayerCard'
+import { PlayerCard } from '../Player/PlayerCard'
 import { Link } from 'react-router-dom'
 import PlayerForm from '../Player/PlayerForm'
-import CampaignCard from '../Campaign/CampaignCard'
+import { CampaignCard } from '../Campaign/CampaignCard'
 import { connect } from 'react-redux'
-import { createPlayer } from '../../redux/actions/index'
+import { createPlayer, playerArray, campaignArray } from '../../redux/actions/index'
 
 
 function mapDispatchToProps(dispatch){
     return{
         createPlayer: playerName => dispatch(createPlayer(playerName)),
-        createPlayer: playerPassword => dispatch(createPlayer(playerPassword))
+        createPlayer: playerPassword => dispatch(createPlayer(playerPassword)),
+        playerArray: player => dispatch(playerArray(player)),
+        campaignArray: campaign => dispatch(campaignArray(campaign))
     }
 }
 
@@ -22,8 +24,6 @@ class ConnectedDungeonMasterPage extends React.Component {
     constructor(){
         super()
         this.state = {
-            players: [],
-            campaigns: [],
             playerName: '',
             playerPassword: ''
         }
@@ -32,10 +32,10 @@ class ConnectedDungeonMasterPage extends React.Component {
     componentDidMount = ()=>{
         fetch('http://localhost:3001/players')
             .then(response => response.json())
-            .then(players => this.setState({ players: players }))
+            .then(players => this.dispatchPlayers(players))
         fetch('http://localhost:3001/campaigns')
             .then(response => response.json())
-            .then(campaigns => this.setState({ campaigns: campaigns }))
+            .then(campaigns => this.dispatchCampaigns(campaigns))
     }
 
     handleFormNameInput = (e) => {
@@ -48,6 +48,14 @@ class ConnectedDungeonMasterPage extends React.Component {
         this.setState({
             playerPassword: e.target.value
         })
+    }
+
+    dispatchPlayers = (players) => {
+        this.props.playerArray({ players })
+    }
+
+    dispatchCampaigns = (campaigns) => {
+        this.props.campaignArray({ campaigns })
     }
 
     handlePlayerCreation = (e) => {
@@ -72,7 +80,6 @@ class ConnectedDungeonMasterPage extends React.Component {
 
 
     render(){
-        console.log(document.cookie)
         return(
             <Container fluid>
                 <Segment textAlign="center">
@@ -82,12 +89,12 @@ class ConnectedDungeonMasterPage extends React.Component {
                 </Segment>
                 <Segment>
                     <Card.Group align="left">
-                        <PlayerCard players={this.state.players} />
+                        <PlayerCard />
                     </Card.Group>
                 </Segment>
                 <Segment>
                     <Card.Group>
-                        <CampaignCard campaigns={this.state.campaigns} />
+                        <CampaignCard />
                     </Card.Group>
                 </Segment>
                 <Segment>

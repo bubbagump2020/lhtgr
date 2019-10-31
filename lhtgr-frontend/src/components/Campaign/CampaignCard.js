@@ -1,27 +1,31 @@
 import React from 'react'
-import { Card, Header } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
+import { useSelector } from 'react-redux'
 
-class CampaignCard extends React.Component{
+export function CampaignCard(){
+    const result = useSelector(state => state)
 
-    displayCampaignCards = () => {
-        return this.props.campaigns.map(campaign => {
-            return(
-                <Card key={campaign.id} style={{backgroundColor: "#cc6600"}}>
-                    <Card.Content>
-                        <Card.Header>{campaign.name}</Card.Header>
-                    </Card.Content>
-                </Card>
-            )
-        })
-    }
-
-    render(){
+    if(result === undefined){
         return(
-            <Card.Group>
-                {this.displayCampaignCards()}
-            </Card.Group>
+            <div>
+                Loading
+            </div>
         )
+    } else {
+        if(result.campaigns.campaigns !== undefined){
+            return result.campaigns.campaigns.map(campaign => {
+                return(
+                    <Card key={campaign.id} style={{backgroundColor: "#cc6600"}}>
+                        <Card.Content>
+                            <Card.Header>{campaign.name}</Card.Header>
+                        </Card.Content>
+                    </Card>
+                )
+            })
+        }
     }
-}
 
-export default CampaignCard
+    return(
+        <Card.Group />
+    )
+}
