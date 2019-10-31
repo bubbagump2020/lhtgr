@@ -14,7 +14,8 @@ class PlayersController < ApplicationController
     end
 
     def create
-        
+        player = Player.create(player_params)
+        render json: player
     end
 
     def show
@@ -22,7 +23,7 @@ class PlayersController < ApplicationController
     end
 
     def player_params
-        params.permit(:username, :password)
+        params.permit(:dungeon_master_id, :username, :password)
     end
 
     def define_current_player

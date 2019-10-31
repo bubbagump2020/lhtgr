@@ -25,8 +25,11 @@ const characterSavingThrows = {
 }
 
 const initialState = {
+    players: [],
+    campaigns: [],
+    characters: [],
     playerName: '',
-    password: '',
+    playerPassword: '',
     togglePlayerActive: false,
     campaignName: '',
     toggleCampaignActive: false,
@@ -40,6 +43,25 @@ const initialState = {
 }
 
 function rootReducer(state = initialState, action) {
+    if(action.type === actions.CREATE_PLAYER){
+        return {
+            ...state,
+            playerName: action.payload,
+            playerPassword: action.payload
+        }
+    }
+    if(action.type === actions.PLAYER_ARRAY){
+        return {
+            ...state,
+            players: action.payload
+        }
+    }
+    if(action.type === actions.CAMPAIGN_ARRAY){
+        return {
+            ...state,
+            campaigns: action.payload
+        }
+    }
     return state
 }
 

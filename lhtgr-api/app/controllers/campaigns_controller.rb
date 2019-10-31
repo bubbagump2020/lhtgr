@@ -6,12 +6,8 @@ class CampaignsController < ApplicationController
     end
 
     def create
-        # byebug
-            # byebug
         campaign = Campaign.create(campaign_params)
-            # byebug
         render json: campaign
-
     end
 
     def current
