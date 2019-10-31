@@ -1,22 +1,31 @@
 import React from 'react';
 import { Segment, Header, Container, Card, Form, Grid, Button } from 'semantic-ui-react';
 import PlayerCard from '../Player/PlayerCard'
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PlayerForm from '../Player/PlayerForm'
-import CampaignForm from '../Campaign/CampaignForm'
 import CampaignCard from '../Campaign/CampaignCard'
-import { useSelector } from 'react-redux'
+import { connect } from 'react-redux'
+import { createPlayer } from '../../redux/actions/index'
 
 
+function mapDispatchToProps(dispatch){
+    return{
+        createPlayer: playerName => dispatch(createPlayer(playerName)),
+        createPlayer: playerPassword => dispatch(createPlayer(playerPassword))
+    }
+}
 
-class DungeonMasterPage extends React.Component {
+
+class ConnectedDungeonMasterPage extends React.Component {
 
     
     constructor(){
         super()
         this.state = {
             players: [],
-            campaigns: []
+            campaigns: [],
+            playerName: '',
+            playerPassword: ''
         }
     }
     
@@ -29,15 +38,32 @@ class DungeonMasterPage extends React.Component {
             .then(campaigns => this.setState({ campaigns: campaigns }))
     }
 
+    handleFormNameInput = (e) => {
+        this.setState({
+            playerName: e.target.value,
+        })
+    }
+
+    handleFormPasswordInput = (e) => {
+        this.setState({
+            playerPassword: e.target.value
+        })
+    }
+
     handlePlayerCreation = (e) => {
+        const { playerName, playerPassword } = this.state
+        this.props.createPlayer({ playerName, playerPassword })
         e.preventDefault()
+        this.setState({ playerName: '', playerPassword: '' })
         fetch('http://localhost:3001/players',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                
+                dungeon_master_id: document.cookie,
+                username: this.state.playerName,
+                password: this.state.playerPassword
             })
         }).then(response => response.json())
           .then(data => console.log(data))
@@ -46,6 +72,7 @@ class DungeonMasterPage extends React.Component {
 
 
     render(){
+        console.log(document.cookie)
         return(
             <Container fluid>
                 <Segment textAlign="center">
@@ -63,9 +90,18 @@ class DungeonMasterPage extends React.Component {
                         <CampaignCard campaigns={this.state.campaigns} />
                     </Card.Group>
                 </Segment>
+                <Segment>
+                    <PlayerForm
+                    playerCreation={e => this.handlePlayerCreation(e)}
+                    playerName={e => this.handleFormNameInput(e)}
+                    playerPassword={e => this.handleFormPasswordInput(e)}
+                    />
+                </Segment>
             </Container>
         )
     }
 }
+
+const DungeonMasterPage = connect(null, mapDispatchToProps)(ConnectedDungeonMasterPage)
 
 export default DungeonMasterPage;
