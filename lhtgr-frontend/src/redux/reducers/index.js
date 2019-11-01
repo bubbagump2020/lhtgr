@@ -1,13 +1,13 @@
 import * as actions from '../constants/action-types'
 
-const characterAttributes = {
-    str: 10,
-    dex: 10,
-    con: 10,
-    int: 10,
-    wis: 10,
-    cha: 10
-}
+const characterAttributes = [
+    { str: 10 },
+    { dex: 10 },
+    { con: 10 },
+    { int: 10 },
+    { wis: 10 },
+    { cha: 10 }
+]
 
 const characterAttrModifiers = {
     strMod: Math.floor((characterAttributes.str - 10) / 2),
@@ -28,18 +28,22 @@ const initialState = {
     players: [],
     campaigns: [],
     characters: [],
+    customCharClass: '',
     playerName: '',
     playerPassword: '',
     togglePlayerActive: false,
     campaignName: '',
     toggleCampaignActive: false,
-    characterName: '',
-    characterLevel: 1,
-    characterAlignment: 'neutral neutral',
-    characterRace: '',
-    characterAttributes: characterAttributes,
-    characterAttrModifiers: characterAttrModifiers,
-    characterSavingThrows: characterSavingThrows
+    character: {
+        characterName: '',
+        characterClass: '',
+        characterLevel: 1,
+        characterAlignment: 'neutral neutral',
+        characterRace: '',
+        characterAttributes: characterAttributes,
+        characterAttrModifiers: characterAttrModifiers,
+        characterSavingThrows: characterSavingThrows
+    }
 }
 
 function rootReducer(state = initialState, action) {
@@ -60,6 +64,34 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             campaigns: action.payload
+        }
+    }
+    if(action.type === actions.CHARACTER_NAME){
+        return {
+            ...state,
+            character: { ...state.character,
+                characterName: action.payload
+            }
+        }
+    }
+    if(action.type === actions.CHARACTER_CLASS){
+        return {
+            ...state,
+            character: { ...state.character,
+                characterClass: action.payload
+            }
+        }
+    }
+    if(action.type === actions.INCREMENT){
+        return{
+            ...state,
+            characterAttributes: action.payload
+        }
+    }
+    if(action.type === actions.DECREMENT){
+        return{
+            ...state,
+            characterAttributes: action.payload
         }
     }
     return state
