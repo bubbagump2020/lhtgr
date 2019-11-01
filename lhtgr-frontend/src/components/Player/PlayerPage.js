@@ -66,13 +66,17 @@ const PlayerPage = (props) => {
     
     return(
         <Container fluid>
-            {/* {console.log(campaignID)} */}
             <Segment textAlign="center">
                 <Header as="h1">Welcome Back!</Header>
                 <Link to="/"><Logout /></Link>
             </Segment>
             <Segment>
                 <CharacterForm createCharacter={createCharacter}/>
+            </Segment>
+            <Segment>
+                <Card.Group>
+                    <CharacterCard />
+                </Card.Group>
             </Segment>
         </Container>
     )

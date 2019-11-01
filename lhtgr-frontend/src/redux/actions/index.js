@@ -2,6 +2,9 @@ import {
     CREATE_PLAYER,
     CREATE_CAMPAIGN,
     PLAYER_ARRAY,
+    CURRENT_PLAYER,
+    CURRENT_PLAYER_NAME,
+    CURRENT_PLAYER_ID,
     CAMPAIGN_ARRAY,
     CAMPAIGN,
     INCREMENT,
@@ -10,8 +13,6 @@ import {
     CHARACTER_CLASS,
     CHARACTER_RACE,
     CHARACTER_ARRAY
-
-
 } from '../constants/action-types'
 
 export function createPlayer(payload){
@@ -56,4 +57,16 @@ export function characterRace(payload){
 
 export function campaign(payload){
     return { type: CAMPAIGN, payload}
+}
+
+export function currentPlayer(payload){
+    return { type: CURRENT_PLAYER, payload}
+}
+
+export function currentPlayerName(payload){
+    return { type: CURRENT_PLAYER_NAME, payload }
+}
+
+export function currentPlayerId(payload){
+    return { type: CURRENT_PLAYER_ID, payload}
 }
