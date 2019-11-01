@@ -3,10 +3,13 @@ import {
     CREATE_CAMPAIGN,
     PLAYER_ARRAY,
     CAMPAIGN_ARRAY,
+    CAMPAIGN,
     INCREMENT,
     DECREMENT,
     CHARACTER_NAME,
-    CHARACTER_CLASS
+    CHARACTER_CLASS,
+    CHARACTER_RACE,
+    CHARACTER_ARRAY
 
 
 } from '../constants/action-types'
@@ -35,10 +38,22 @@ export function decrement(payload){
     return { type: DECREMENT, payload }
 }
 
+export function characterArray(payload){
+    return { type: CHARACTER_ARRAY, payload }
+}
+
 export function characterName(payload){
     return { type: CHARACTER_NAME, payload}
 }
 
 export function characterClass(payload){
     return { type: CHARACTER_CLASS, payload }
+}
+
+export function characterRace(payload){
+    return { type: CHARACTER_RACE, payload }
+}
+
+export function campaign(payload){
+    return { type: CAMPAIGN, payload}
 }

@@ -1,13 +1,13 @@
 import * as actions from '../constants/action-types'
 
-const characterAttributes = [
-    { str: 10 },
-    { dex: 10 },
-    { con: 10 },
-    { int: 10 },
-    { wis: 10 },
-    { cha: 10 }
-]
+const characterAttributes = {
+    str: 10 ,
+    dex: 10 ,
+    con: 10 ,
+    int: 10 ,
+    wis: 10 ,
+    cha: 10 
+}
 
 const characterAttrModifiers = {
     strMod: Math.floor((characterAttributes.str - 10) / 2),
@@ -32,7 +32,7 @@ const initialState = {
     playerName: '',
     playerPassword: '',
     togglePlayerActive: false,
-    campaignName: '',
+    campaign: '',
     toggleCampaignActive: false,
     character: {
         characterName: '',
@@ -66,6 +66,12 @@ function rootReducer(state = initialState, action) {
             campaigns: action.payload
         }
     }
+    if(action.type === actions.CAMPAIGN){
+        return {
+            ...state,
+            campaign: action.payload
+        }
+    }
     if(action.type === actions.CHARACTER_NAME){
         return {
             ...state,
@@ -79,6 +85,14 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: { ...state.character,
                 characterClass: action.payload
+            }
+        }
+    }
+    if(action.type === actions.CHARACTER_RACE){
+        return {
+            ...state,
+            character: { ...state.character,
+                characterRace: action.payload
             }
         }
     }

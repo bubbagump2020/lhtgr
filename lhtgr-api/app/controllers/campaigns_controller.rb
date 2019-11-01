@@ -1,5 +1,4 @@
 class CampaignsController < ApplicationController
-    # before_action :define_current_campaign
 
     def new
 
@@ -36,6 +35,5 @@ class CampaignsController < ApplicationController
 
     def campaign_params
         params.permit(:dungeon_master_id, :name)
-        # byebug
     end
 end
