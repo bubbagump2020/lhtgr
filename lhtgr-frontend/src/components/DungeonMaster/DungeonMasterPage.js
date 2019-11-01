@@ -1,5 +1,6 @@
 import React from 'react';
-import { Segment, Header, Container, Card, Form, Grid, Button } from 'semantic-ui-react';
+import { Segment, Header, Container, Card, Menu, Accordion } from 'semantic-ui-react';
+import { Logout } from '../Logout'
 import { PlayerCard } from '../Player/PlayerCard'
 import { Link } from 'react-router-dom'
 import PlayerForm from '../Player/PlayerForm'
@@ -7,11 +8,9 @@ import { CampaignCard } from '../Campaign/CampaignCard'
 import { connect } from 'react-redux'
 import { createPlayer, playerArray, campaignArray } from '../../redux/actions/index'
 
-
 function mapDispatchToProps(dispatch){
     return{
-        createPlayer: playerName => dispatch(createPlayer(playerName)),
-        createPlayer: playerPassword => dispatch(createPlayer(playerPassword)),
+        createPlayer: (playerName, playerPassword) => dispatch(createPlayer(playerName, playerPassword)),
         playerArray: player => dispatch(playerArray(player)),
         campaignArray: campaign => dispatch(campaignArray(campaign))
     }
@@ -20,7 +19,6 @@ function mapDispatchToProps(dispatch){
 
 class ConnectedDungeonMasterPage extends React.Component {
 
-    
     constructor(){
         super()
         this.state = {
@@ -77,33 +75,37 @@ class ConnectedDungeonMasterPage extends React.Component {
           .then(data => console.log(data))
     }
 
-
-
     render(){
         return(
             <Container fluid>
-                <Segment textAlign="center">
-                    <Header as="h1">Welcome Back Dungeon Master</Header>
-                    <Link to="/players/new">Create a Player</Link><br></br>
-                    <Link to="/campaigns/new">Create a Campaign</Link>
-                </Segment>
-                <Segment>
-                    <Card.Group align="left">
-                        <PlayerCard />
-                    </Card.Group>
-                </Segment>
-                <Segment>
+                <Menu>
+                    <Menu.Item header>Welcome Back Dungeon Master</Menu.Item>
+                    <Menu.Item>
+                        <Link to="/campaigns/new">Create a Campaign</Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Link to="/"><Logout/></Link>
+                    </Menu.Item>
+                </Menu>
+                <Menu vertical>
+                    <Menu.Item>
+                        <PlayerForm
+                        playerCreation={e => this.handlePlayerCreation(e)}
+                        playerName={e => this.handleFormNameInput(e)}
+                        playerPassword={e => this.handleFormPasswordInput(e)}
+                        />
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Card.Group align="left">
+                            <PlayerCard />
+                        </Card.Group>
+                    </Menu.Item>
+                    <Menu.Item align="left">
                     <Card.Group>
-                        <CampaignCard />
-                    </Card.Group>
-                </Segment>
-                <Segment>
-                    <PlayerForm
-                    playerCreation={e => this.handlePlayerCreation(e)}
-                    playerName={e => this.handleFormNameInput(e)}
-                    playerPassword={e => this.handleFormPasswordInput(e)}
-                    />
-                </Segment>
+                            <CampaignCard />
+                        </Card.Group>
+                    </Menu.Item>
+                </Menu>
             </Container>
         )
     }

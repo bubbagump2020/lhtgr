@@ -1,5 +1,9 @@
 import React from 'react'
-
+import { Card, Segment, Header, Container} from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Logout } from '../Logout'
+import CharacterForm from '../Character/CharacterForm'
+import { CharacterCard } from '../Character/CharacterCard'
 class PlayerPage extends React.Component {
 
     componentDidMount = () => {
@@ -8,12 +12,21 @@ class PlayerPage extends React.Component {
             .then(data => console.log(data))
     }
 
+    handleCharacterCreation = (e) => {
+        e.preventDefault()
+    }
 
     render(){
         return(
-            <div>
-                <h1>PlayerPage Component</h1>
-            </div>
+           <Container fluid>
+               <Segment textAlign="center">
+                   <Header as="h1">Welcome Back!</Header>
+                   <Link to="/"><Logout /></Link>
+               </Segment>
+               <Segment>
+                   <CharacterForm createCharacter={e => this.handleCharacterCreation(e)}/>
+               </Segment>
+           </Container>
         )
     }
 }
