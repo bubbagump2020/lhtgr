@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Header, Container, Card, Menu, Accordion } from 'semantic-ui-react';
+import { Container, Card, Menu } from 'semantic-ui-react';
 import { Logout } from '../Logout'
 import { PlayerCard } from '../Player/PlayerCard'
 import { Link } from 'react-router-dom'

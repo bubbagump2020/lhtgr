@@ -1,82 +1,53 @@
 import React, { useEffect } from 'react'
-import { Card, Segment, Header, Container} from 'semantic-ui-react'
+import { Segment, Header, Container} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { Logout } from '../Logout'
-import CharacterForm from '../Character/CharacterForm'
 import { CharacterCard } from '../Character/CharacterCard'
 import { useSelector, useDispatch } from 'react-redux'
-import { campaignArray } from '../../redux/actions'
-
+import { campaignArray, currentPlayerId, characterArray } from '../../redux/actions'
 
 const PlayerPage = (props) => {
-    const { character } = useSelector(state => ({ character: state.character }))
-    const { campaign } = useSelector(state => ({ campaign: state.campaign}))
-    const campaigns = useSelector(state => state)
+    const { characters } = useSelector (state => ({ characters: state.characters }) )
+    
     const dispatch = useDispatch()
 
-    let campaignID = 0;
-    if(campaigns === undefined){
-        return(
-            <div>
-                Loading
-            </div>
-        )
-    } else {
-        if(campaigns.campaigns.campaigns !== undefined){
-            campaigns.campaigns.campaigns.map(selectedCampaign => {
-                if(campaign === undefined){
-                    return(
-                        <div>
-                            Loading
-                        </div>
-                    )
-                } else {
-                    if( selectedCampaign.name === campaign.value){
-                        campaignID = selectedCampaign.id
-                    }
-                }
-            })
-        }
-    }
-
-
-    const createCharacter = (e) => {
-        e.preventDefault()
-        fetch('http://localhost:3001/characters', {
-            method: 'POST',
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        fetch(`http://localhost:3001/players/${props.match.params.id}`, {
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                player_id: document.cookie,
-                campaign_id: campaignID,
-                name: character.characterName,
-                primary_class: character.characterClass.value,
-                str: character.characterAttributes.str,
-                dex: character.characterAttributes.dex,
-                con: character.characterAttributes.con,
-                int: character.characterAttributes.int,
-                wis: character.characterAttributes.wis,
-                cha: character.characterAttributes.cha
-            })
-        }).then(response => response.json())
-          .then(data => console.log(data))
-    }
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then( response => response.json() )
+            .then( player => dispatch(currentPlayerId(player.id)))
+        fetch(`http://localhost:3001/characters`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then( response => response.json() )
+            .then( characters => dispatch(characterArray(characters)))
+        fetch(`http://localhost:3001/campaigns`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then( response => response.json() )
+            .then( campaigns => dispatch(campaignArray(campaigns)))
+    }, [props, dispatch])
 
-    
     return(
         <Container fluid>
-            {/* {console.log(campaignID)} */}
             <Segment textAlign="center">
                 <Header as="h1">Welcome Back!</Header>
+                <Link to="/characters/new">Create a Character!</Link>
                 <Link to="/"><Logout /></Link>
             </Segment>
             <Segment>
-                <CharacterForm createCharacter={createCharacter}/>
+                <CharacterCard characters={characters}/>
             </Segment>
         </Container>
     )
-
 }
 
 export default PlayerPage;

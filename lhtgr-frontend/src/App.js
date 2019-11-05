@@ -5,34 +5,11 @@ import DungeonMasterPage from './components/DungeonMaster/DungeonMasterPage'
 import PlayerPage from './components/Player/PlayerPage'
 import PlayerForm from './components/Player/PlayerForm'
 import CampaignForm from './components/Campaign/CampaignForm'
-import { connect } from 'react-redux'
-import { campaignArray } from './redux/actions'
-
-const MapStateToProps = state => {
-  return { campaigns: state.campaigns}
-}
-
-function MapDispatchToProps(dispatch){
-  return{
-    campaignArray: campaign => dispatch(campaignArray(campaign))
-  }
-}
+import CharacterForm from './components/Character/CharacterForm'
 
 
-class ConnectedApp extends React.Component {
-  constructor(props){
-    super(props)
-  }
-
-  componentDidMount = () =>{
-    fetch('http://localhost:3001/campaigns')
-      .then(response => response.json())
-      .then(campaigns => this.dispatchCampaigns(campaigns))
-  }
-
-  dispatchCampaigns = (campaigns) => {
-    this.props.campaignArray({ campaigns })
-  }
+class App extends React.Component {
+  
 
   render(){
     return (
@@ -43,13 +20,12 @@ class ConnectedApp extends React.Component {
           < Route exact path="/players/:id" component={PlayerPage} />
           < Route exact path="/players/new" component={PlayerForm} />
           < Route exact path="/campaigns/new" component={CampaignForm} />
+          < Route exact path="/characters/new" component={CharacterForm} />
         </BrowserRouter>
       </div>
     );
   }
   
 }
-
-const App = connect(MapStateToProps, MapDispatchToProps)(ConnectedApp)
 
 export default App;
