@@ -9,28 +9,32 @@ class CampaignsController < ApplicationController
         render json: campaign
     end
 
-    def current
-        render json: current_campaign
-    end
-
     def show
-        render json: current_campaign
+        campaign = Campaign.find_by(id: params[:id])
+        render json: campaign.to_json(
+            :only => [
+                :id, :name
+            ],
+            :include => {
+                :dungeon_master => {
+                    :only => [:id, :username]
+                }
+            }
+        )
     end
 
     def index
-        render json: Campaign.all
-    end
-
-    def define_current_campaign
-        if params[:id]
-            @current_campaign = Campaign.find(params[:id])
-        else
-            @current_campaign = Campaign.new
-        end
-    end
-    
-    def current_campaign
-        @current_campaign
+        campaigns = Campaign.all
+        render json: campaigns.to_json(
+            :only => [
+                :id, :name
+            ],
+            :include => {
+                :dungeon_master => {
+                    :only => [:id, :username]
+                }
+            }
+        )
     end
 
     def campaign_params

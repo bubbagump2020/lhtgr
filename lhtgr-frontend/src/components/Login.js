@@ -55,7 +55,6 @@ export function Login(props) {
                   document.cookie = data.id
                   localStorage.setItem('token', data.token)
                   props.history.push(`/players/${data.id}`)
-                  dispatch(currentPlayerName(player.username))
                   dispatch(currentPlayerId(data.id))
               }
           })

@@ -1,12 +1,19 @@
 class PlayersController < ApplicationController
-    before_action :define_current_player
 
     def current
         render json: current_player
     end
 
     def index
-        render json: Player.all
+        players = Player.all
+        render json: players.to_json(
+            :only => [:id, :username],
+            :include => {
+                :dungeon_master => {
+                    :only => [:id, :username]
+                }
+            }
+        )
     end
 
     def new
@@ -19,23 +26,23 @@ class PlayersController < ApplicationController
     end
 
     def show
-        render json: current_player
+        player = Player.find_by(id: params[:id])
+        if player
+            render json: player.to_json(
+                :only => [:id, :username],
+                :include => {
+                    :dungeon_master => {
+                        :only => [:id, :username]
+                    }
+                }
+            )
+        else
+            render json: { message: 'The dungeon master has not created that player yet'}
+        end
     end
 
     def player_params
         params.permit(:dungeon_master_id, :username, :password)
-    end
-
-    def define_current_player
-        if params[:id]
-            @current_player = Player.find(params[:id])
-        else
-            @current_player = Player.new
-        end
-    end
-
-    def current_player
-        @current_player
     end
 
 end
