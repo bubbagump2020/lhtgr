@@ -12,7 +12,6 @@ import {
     NavLink
 } from 'reactstrap'
 import { Link } from 'react-router-dom'
-import { Logout } from '../Logout'
 import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
 import { campaignArray, currentPlayerId, characterArray } from '../../redux/actions'

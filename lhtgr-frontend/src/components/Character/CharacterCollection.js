@@ -14,7 +14,6 @@ export function CharacterCollection(props){
                 if(character.player.id === props.currentPlayer){
                     return(
                         <Card key={character.id}>
-                            {console.log(character)}
                             <CharacterCard character={character}/>
                         </Card>
                     )
