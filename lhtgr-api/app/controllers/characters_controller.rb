@@ -6,7 +6,6 @@ class CharactersController < ApplicationController
 
     def create
         character = Character.create(character_params)
-        # byebug
         render json: character
     end
 
@@ -14,7 +13,7 @@ class CharactersController < ApplicationController
         characters = Character.all
         render json: characters.to_json(
             :only => [
-                :id, :name, :primary_class, :race,
+                :id, :name, :primary_class, :level, :race,
                 :str, :dex, :con, :int, :wis, :cha
             ],
             :include => {
@@ -37,7 +36,7 @@ class CharactersController < ApplicationController
         character = Character.find_by(id: params[:id])
         render json: character.to_json(
             :only => [
-                :id, :name, :primary_class, :race,
+                :id, :name, :primary_class, :level, :race,
                 :str, :dex, :con, :int, :wis, :cha
             ],
             :include => {
@@ -55,7 +54,36 @@ class CharactersController < ApplicationController
             }
         )
     end
-    
+
+    def edit
+        character = Character.find_by(id: params[:id])
+        # render json: character.to_json(
+        #     :only => [
+        #         :id, :name, :primary_class, :level, :race,
+        #         :str, :dex, :con, :int, :wis, :cha
+        #     ],
+        #     :include => {
+        #         :player => {
+        #             :only => [:id, :username],
+        #             :include => {
+        #                 :dungeon_master => {
+        #                     :only => [:id, :username]
+        #                 }
+        #             }
+        #         },
+        #         :campaign => {
+        #             :only => [:id, :name]
+        #         }
+        #     }
+        # )
+    end
+
+    def update
+        character = Character.find_by(id: params[:id])
+        character.update(character_params)
+        render json: character
+    end
+
 
     def character_params
         params.permit(
@@ -63,6 +91,7 @@ class CharactersController < ApplicationController
             :campaign_id,
             :name,
             :primary_class,
+            :level,
             :race,
             :str,
             :dex,

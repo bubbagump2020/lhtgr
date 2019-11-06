@@ -5,6 +5,7 @@ class CreateCharacters < ActiveRecord::Migration[6.0]
       t.belongs_to :campaign
       t.string :name
       t.string :primary_class
+      t.integer :level
       t.string :race
       t.integer :str
       t.integer :dex

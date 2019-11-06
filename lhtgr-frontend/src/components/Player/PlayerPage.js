@@ -1,14 +1,29 @@
-import React, { useEffect } from 'react'
-import { Segment, Header, Container} from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import {
+    Collapse,
+    Container,
+    Col,
+    Row,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavItem,
+    NavLink
+} from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { Logout } from '../Logout'
-import { CharacterCard } from '../Character/CharacterCard'
+import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
 import { campaignArray, currentPlayerId, characterArray } from '../../redux/actions'
 
 const PlayerPage = (props) => {
     const { characters } = useSelector (state => ({ characters: state.characters }) )
+    const { currentPlayer } = useSelector (state => ({ currentPlayer: state.currentPlayer.currentPlayerId }) )
+    const [ isOpen, setIsOpen ] = useState(false);
     
+    const toggle = () => setIsOpen(!isOpen)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -37,16 +52,38 @@ const PlayerPage = (props) => {
     }, [props, dispatch])
 
     return(
-        <Container fluid>
-            <Segment textAlign="center">
-                <Header as="h1">Welcome Back!</Header>
-                <Link to="/characters/new">Create a Character!</Link>
-                <Link to="/"><Logout /></Link>
-            </Segment>
-            <Segment>
-                <CharacterCard characters={characters}/>
-            </Segment>
-        </Container>
+        <div>
+            <Navbar color="secondary" light expand="md">
+                <NavbarBrand className="text-white">Welcome</NavbarBrand>
+                <NavbarToggler onClick={toggle} />
+                <Collapse isOpen={isOpen} navbar>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink className="text-white" tag={Link} to="/characters/new">Character Creation</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink className="text-white" tag={Link} to="/characters/edit">Edit Character</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/" className="text-white">Logout</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Collapse>
+            </Navbar>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <CharacterCollection characters={characters} currentPlayer={currentPlayer}/>
+                    </Col>
+                    <Col>
+                        <h1>Column 2</h1>
+                    </Col>
+                    <Col>
+                        <h1>Column 3</h1>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
     )
 }
 

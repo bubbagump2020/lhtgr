@@ -65,7 +65,7 @@ export function Login(props) {
         <Segment>
             <Grid columns={2} relaxed="very">
                 <Grid.Column>
-                    <Form onSubmit={loginDM}>
+                    <Form onSubmit={loginDM} success warning>
                         <Header as="h1">Dungeon Master Login</Header>
                         <Form.Field label="Username" />
                         <Form.Input placeholder="Username" type="text" value={dm.username} onChange={ e => changeDM({ ...dm, username: e.target.value })} />
@@ -75,7 +75,7 @@ export function Login(props) {
                     </Form>
                 </Grid.Column>
                 <Grid.Column>
-                    <Form onSubmit={loginPlayer}>
+                    <Form onSubmit={loginPlayer} success warning>
                         <Header as ="h1">Player Login</Header>
                         <Form.Field label="Username" />
                         <Form.Input placeholder="Username" type="text" value={player.username} onChange={ e => changePlayer({ ...player, username: e.target.value })} />

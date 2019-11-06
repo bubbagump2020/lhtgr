@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_163537) do
     t.bigint "campaign_id"
     t.string "name"
     t.string "primary_class"
+    t.integer "level"
     t.string "race"
     t.integer "str"
     t.integer "dex"

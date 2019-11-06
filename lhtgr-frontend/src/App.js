@@ -5,8 +5,8 @@ import DungeonMasterPage from './components/DungeonMaster/DungeonMasterPage'
 import PlayerPage from './components/Player/PlayerPage'
 import PlayerForm from './components/Player/PlayerForm'
 import CampaignForm from './components/Campaign/CampaignForm'
-import CharacterForm from './components/Character/CharacterForm'
-
+import CharacterForm from './components/Character/CharacterFormNew'
+import { EditCharacter } from './components/Character/CharacterFormEdit'
 
 class App extends React.Component {
   
@@ -21,6 +21,7 @@ class App extends React.Component {
           < Route exact path="/players/new" component={PlayerForm} />
           < Route exact path="/campaigns/new" component={CampaignForm} />
           < Route exact path="/characters/new" component={CharacterForm} />
+          < Route exact path="/characters/edit" component={EditCharacter} />
         </BrowserRouter>
       </div>
     );
