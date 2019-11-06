@@ -1,14 +1,5 @@
 import * as actions from '../constants/action-types'
 
-const characterAttributes = {
-    str: 10 ,
-    dex: 10 ,
-    con: 10 ,
-    int: 10 ,
-    wis: 10 ,
-    cha: 10 
-}
-
 const initialState = {
     players: [],
     campaigns: [],
@@ -25,12 +16,16 @@ const initialState = {
     },
     toggleCampaignActive: false,
     character: {
-        characterName: '',
-        characterClass: '',
-        characterLevel: 1,
-        characterAlignment: 'neutral neutral',
-        characterRace: '',
-        characterAttributes: characterAttributes
+        name: '',
+        primary_class: '',
+        level: 1,
+        race: '',
+        str: 10 ,
+        dex: 10 ,
+        con: 10 ,
+        int: 10 ,
+        wis: 10 ,
+        cha: 10 
     }
 }
 
@@ -75,11 +70,17 @@ function rootReducer(state = initialState, action) {
             campaign: action.payload
         }
     }
+    if(action.type === actions.CHARACTER){
+        return {
+            ...state,
+            character: action.payload
+        }
+    }
     if(action.type === actions.CHARACTER_NAME){
         return {
             ...state,
             character: { ...state.character,
-                characterName: action.payload
+                name: action.payload
             }
         }
     }
@@ -87,7 +88,7 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             character: { ...state.character,
-                characterClass: action.payload
+                primary_class: action.payload
             }
         }
     }
@@ -95,7 +96,16 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             character: { ...state.character,
-                characterRace: action.payload
+                race: action.payload
+            }
+        }
+    }
+    if(action.type === actions.CHARACTER_LEVEL){
+        return{
+            ...state,
+            character: {
+                ...state.character,
+                level: action.payload
             }
         }
     }
@@ -110,13 +120,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     str: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.INCREMENT_DEX){

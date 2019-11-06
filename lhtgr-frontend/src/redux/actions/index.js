@@ -6,9 +6,11 @@ import {
     CURRENT_PLAYER_ID,
     CAMPAIGN_ARRAY,
     CAMPAIGN,
+    CHARACTER,
     CHARACTER_NAME,
     CHARACTER_CLASS,
     CHARACTER_RACE,
+    CHARACTER_LEVEL,
     CHARACTER_ARRAY,
     INCREMENT_STR,
     INCREMENT_DEX,
@@ -52,6 +54,10 @@ export function characterArray(payload){
     return { type: CHARACTER_ARRAY, payload }
 }
 
+export function character(payload){
+    return { type: CHARACTER, payload }
+}
+
 export function characterName(payload){
     return { type: CHARACTER_NAME, payload}
 }
@@ -62,6 +68,10 @@ export function characterClass(payload){
 
 export function characterRace(payload){
     return { type: CHARACTER_RACE, payload }
+}
+
+export function characterLevel(payload){
+    return { type: CHARACTER_LEVEL, payload }
 }
 
 export function selectCampaign(payload){

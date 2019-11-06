@@ -185,6 +185,7 @@ const CharacterForm = (props) => {
                 name: character.characterName,
                 primary_class: character.characterClass.value,
                 race: character.characterRace.value,
+                level: 1,
                 str: character.characterAttributes.str,
                 dex: character.characterAttributes.dex,
                 con: character.characterAttributes.con,
@@ -205,7 +206,7 @@ const CharacterForm = (props) => {
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row stretched>
-                <Form onSubmit={e => createCharacter(e)}>
+                <Form onSubmit={e => createCharacter(e)} success>
                     <Grid.Column>
                         <Form.Group widths="equal">
                             <Segment.Group horizontal>
