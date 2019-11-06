@@ -18,6 +18,7 @@ export function CharacterCard(props){
         <CardDeck>
             <Card className="text-center" outline color="secondary">
                 <CardBody>
+                    {console.log(props.character.player.username, props.character.campaign.name)}
                     <CardTitle tag="h3"><strong>{props.character.name}</strong></CardTitle>
                     <CardText tag="h4">{props.character.race}</CardText>
                     <CardText tag="h4">{props.character.primary_class}, {props.character.level}</CardText>

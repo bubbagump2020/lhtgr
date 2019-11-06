@@ -129,13 +129,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     dex: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.INCREMENT_CON){
@@ -143,13 +138,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     con: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.INCREMENT_INT){
@@ -157,13 +147,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     int: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.INCREMENT_WIS){
@@ -171,13 +156,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     wis: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.INCREMENT_CHA){
@@ -185,13 +165,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     cha: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.DECREMENT_STR){
@@ -199,13 +174,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     str: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.DECREMENT_DEX){
@@ -213,13 +183,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     dex: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.DECREMENT_CON){
@@ -227,13 +192,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     con: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.DECREMENT_INT){
@@ -241,13 +201,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     int: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.DECREMENT_WIS){
@@ -255,13 +210,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     wis: action.payload
-                }
-
             }
-            
         }
     }
     if(action.type === actions.DECREMENT_CHA){
@@ -269,13 +219,8 @@ function rootReducer(state = initialState, action) {
             ...state,
             character: {
                 ...state.character,
-                characterAttributes: {
-                    ...state.character.characterAttributes,
                     cha: action.payload
-                }
-
             }
-            
         }
     }
     return state

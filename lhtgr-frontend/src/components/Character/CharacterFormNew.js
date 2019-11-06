@@ -76,13 +76,13 @@ const CharacterForm = (props) => {
     const incrementDecrementStr = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.str
+            let attribute = character.str
             attribute++;
             dispatch(incrementStr(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.str
+            let attribute = character.str
             attribute--
             dispatch(decrementStr(attribute))
             return attribute;
@@ -92,13 +92,13 @@ const CharacterForm = (props) => {
     const incrementDecrementDex = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.dex
+            let attribute = character.dex
             attribute++;
             dispatch(incrementDex(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.dex
+            let attribute = character.dex
             attribute--
             dispatch(decrementDex(attribute))
             return attribute;
@@ -108,13 +108,13 @@ const CharacterForm = (props) => {
     const incrementDecrementCon = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.con
+            let attribute = character.con
             attribute++;
             dispatch(incrementCon(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.con
+            let attribute = character.con
             attribute--
             dispatch(decrementCon(attribute))
             return attribute;
@@ -124,13 +124,13 @@ const CharacterForm = (props) => {
     const incrementDecrementInt = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.int
+            let attribute = character.int
             attribute++;
             dispatch(incrementInt(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.int
+            let attribute = character.int
             attribute--
             dispatch(decrementInt(attribute))
             return attribute;
@@ -140,13 +140,13 @@ const CharacterForm = (props) => {
     const incrementDecrementWis = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.wis
+            let attribute = character.wis
             attribute++;
             dispatch(incrementWis(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.wis
+            let attribute = character.wis
             attribute--
             dispatch(decrementWis(attribute))
             return attribute;
@@ -156,13 +156,13 @@ const CharacterForm = (props) => {
     const incrementDecrementCha = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.cha
+            let attribute = character.cha
             attribute++;
             dispatch(incrementCha(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.cha
+            let attribute = character.cha
             attribute--
             dispatch(decrementCha(attribute))
             return attribute;
@@ -182,16 +182,16 @@ const CharacterForm = (props) => {
             body: JSON.stringify({
                 player_id: currentPlayer.currentPlayerId,
                 campaign_id: selectedCampaign(),
-                name: character.characterName,
-                primary_class: character.characterClass.value,
-                race: character.characterRace.value,
+                name: character.name,
+                primary_class: character.primary_class.value,
+                race: character.race.value,
                 level: 1,
-                str: character.characterAttributes.str,
-                dex: character.characterAttributes.dex,
-                con: character.characterAttributes.con,
-                int: character.characterAttributes.int,
-                wis: character.characterAttributes.wis,
-                cha: character.characterAttributes.cha
+                str: character.str,
+                dex: character.dex,
+                con: character.con,
+                int: character.int,
+                wis: character.wis,
+                cha: character.cha
             })
         })
             .then(response => response.json())
@@ -230,7 +230,7 @@ const CharacterForm = (props) => {
                             <Segment.Group horizontal>
                                 <Segment raised>
                                     <Header as="h3" textAlign="center">Strength</Header>
-                                    <Header as="h3" textAlign="center">{character.characterAttributes.str}</Header>
+                                    <Header as="h3" textAlign="center">{character.str}</Header>
                                     <Button.Group>
                                         <Button onClick={
                                             e => {
@@ -252,7 +252,7 @@ const CharacterForm = (props) => {
                                 </Segment>
                                 <Segment raised>
                                     <Header as="h3" textAlign="center">Dexterity</Header>
-                                    <Header as="h3" textAlign="center">{character.characterAttributes.dex}</Header>
+                                    <Header as="h3" textAlign="center">{character.dex}</Header>
                                     <Button.Group>
                                         <Button onClick={
                                             e => {
@@ -274,7 +274,7 @@ const CharacterForm = (props) => {
                                 </Segment>
                                 <Segment raised>
                                     <Header as="h3" textAlign="center">Constitution</Header>
-                                    <Header as="h3" textAlign="center">{character.characterAttributes.con}</Header>
+                                    <Header as="h3" textAlign="center">{character.con}</Header>
                                     <Button.Group>
                                         <Button onClick={
                                             e => {
@@ -296,7 +296,7 @@ const CharacterForm = (props) => {
                                 </Segment>
                                 <Segment raised>
                                     <Header as="h3" textAlign="center">Intelligence</Header>
-                                    <Header as="h3" textAlign="center">{character.characterAttributes.int}</Header>
+                                    <Header as="h3" textAlign="center">{character.int}</Header>
                                     <Button.Group>
                                         <Button onClick={
                                             e => {
@@ -318,7 +318,7 @@ const CharacterForm = (props) => {
                                 </Segment>
                                 <Segment raised>
                                     <Header as="h3" textAlign="center">Wisdom</Header>
-                                    <Header as="h3" textAlign="center">{character.characterAttributes.wis}</Header>
+                                    <Header as="h3" textAlign="center">{character.wis}</Header>
                                     <Button.Group>
                                         <Button onClick={
                                             e => {
@@ -340,7 +340,7 @@ const CharacterForm = (props) => {
                                 </Segment>
                                 <Segment raised>
                                     <Header as="h3" textAlign="center">Charisma</Header>
-                                    <Header as="h3" textAlign="center">{character.characterAttributes.cha}</Header>
+                                    <Header as="h3" textAlign="center">{character.cha}</Header>
                                     <Button.Group>
                                         <Button onClick={
                                             e => {

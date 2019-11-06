@@ -93,7 +93,7 @@ export function EditCharacter (props){
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.str
+            let attribute = character.str
             attribute--
             dispatch(decrementStr(attribute))
             return attribute;
@@ -103,13 +103,13 @@ export function EditCharacter (props){
     const incrementDecrementDex = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.dex
+            let attribute = character.dex
             attribute++;
             dispatch(incrementDex(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.dex
+            let attribute = character.dex
             attribute--
             dispatch(decrementDex(attribute))
             return attribute;
@@ -119,13 +119,13 @@ export function EditCharacter (props){
     const incrementDecrementCon = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.con
+            let attribute = character.con
             attribute++;
             dispatch(incrementCon(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.con
+            let attribute = character.con
             attribute--
             dispatch(decrementCon(attribute))
             return attribute;
@@ -135,13 +135,13 @@ export function EditCharacter (props){
     const incrementDecrementInt = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.int
+            let attribute = character.int
             attribute++;
             dispatch(incrementInt(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.int
+            let attribute = character.int
             attribute--
             dispatch(decrementInt(attribute))
             return attribute;
@@ -151,13 +151,13 @@ export function EditCharacter (props){
     const incrementDecrementWis = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.wis
+            let attribute = character.wis
             attribute++;
             dispatch(incrementWis(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.wis
+            let attribute = character.wis
             attribute--
             dispatch(decrementWis(attribute))
             return attribute;
@@ -167,13 +167,13 @@ export function EditCharacter (props){
     const incrementDecrementCha = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.characterAttributes.cha
+            let attribute = character.cha
             attribute++;
             dispatch(incrementCha(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.characterAttributes.cha
+            let attribute = character.cha
             attribute--
             dispatch(decrementCha(attribute))
             return attribute;
@@ -244,7 +244,7 @@ export function EditCharacter (props){
                         </FormGroup>
                     </Col>
                     <Col>
-                        {/* <FormGroup inline>
+                        <FormGroup inline>
                             <Label for="strength" tag="h4">Strength</Label>
                             <Label for="strength value" tag="h4">{thisCharacter.str}</Label>
                             <ButtonGroup>
@@ -375,7 +375,7 @@ export function EditCharacter (props){
                                     -
                                 </Button>
                             </ButtonGroup>
-                        </FormGroup> */}
+                        </FormGroup>
                     </Col>
                     <Button>Edit!</Button>
                 </Form>
