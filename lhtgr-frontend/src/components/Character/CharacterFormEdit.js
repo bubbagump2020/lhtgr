@@ -57,22 +57,6 @@ export function EditCharacter (props){
         { key: 'huma', text: 'Human', value: 'human'}
     ]
 
-    const newLevel = () => {
-        let level = 1;
-        for(let i = 1; i < 20; i++){
-            level++
-            return level;
-        }
-    }
-
-    const listCharacters = () => {
-        let characterArray = []
-        characters.map(character=> {
-            characterArray.push(character)
-        })
-        return characterArray
-    }
-
     const selectedCharacter = (event) => {
         let character = {}
         characters.map(selectedCharacter => {
@@ -85,6 +69,7 @@ export function EditCharacter (props){
     }
 
     const incrementDecrementStr = (event) => {
+        console.log(event.target.innerText)
         event.preventDefault()
         if(event.target.innerText === '+'){
             let attribute = character.str

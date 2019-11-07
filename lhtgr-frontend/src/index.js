@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { ActionCableProvider } from 'react-actioncable-provider'
 import { Provider } from 'react-redux';
 import store from './redux/store/index';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +11,9 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
         <Provider store={store}>
-            <App />
+            <ActionCableProvider url="ws://localhost:3001/cable">
+                <App />
+            </ActionCableProvider>
         </Provider>,
     document.getElementById('root'));
 
