@@ -12,6 +12,7 @@ import {
     CHARACTER_RACE,
     CHARACTER_LEVEL,
     CHARACTER_ARRAY,
+    CHARACTER_CREATION_RESET,
     INCREMENT_STR,
     INCREMENT_DEX,
     INCREMENT_CON,
@@ -72,6 +73,10 @@ export function characterRace(payload){
 
 export function characterLevel(payload){
     return { type: CHARACTER_LEVEL, payload }
+}
+
+export function characterCreationReset(payload){
+    return { type: CHARACTER_CREATION_RESET, payload }
 }
 
 export function selectCampaign(payload){

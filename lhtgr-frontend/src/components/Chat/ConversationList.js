@@ -33,19 +33,6 @@ export default class ConversationsList extends React.Component {
         const { message } = response
         console.log(message)
         const conversations =[...this.state.conversations]
-        // let selectedConversation = []
-        // conversations.map( conversation => {
-        //     conversation.messages.map(messages => {
-        //         if(conversation.id === messages.conversation_id){
-        //             console.log(messages)
-        //         }
-        //     })
-        //     // console.log(message.conversation.id)
-        //     // if(conversation.id === message.conversation.id)
-        //     console.log(conversation)
-        //     // selectedConversation = conversation
-        //     // console.log(selectedConversation)
-        // })
         const conversation = conversations.find( conversation => conversation.id === message.conversation_id)
         conversation.messages = [...conversation.messages, message]
         this.setState({ conversations })
