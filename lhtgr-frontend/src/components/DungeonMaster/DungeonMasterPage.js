@@ -4,6 +4,7 @@ import { Logout } from '../Logout'
 import { PlayerCard } from '../Player/PlayerCard'
 import { Link } from 'react-router-dom'
 import PlayerForm from '../Player/PlayerForm'
+import ConversationList from '../Chat/ConversationList'
 import { CampaignCard } from '../Campaign/CampaignCard'
 import { connect } from 'react-redux'
 import { createPlayer, playerArray, campaignArray } from '../../redux/actions/index'
@@ -104,6 +105,9 @@ class ConnectedDungeonMasterPage extends React.Component {
                     <Card.Group>
                             <CampaignCard />
                         </Card.Group>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <ConversationList />
                     </Menu.Item>
                 </Menu>
             </Container>
