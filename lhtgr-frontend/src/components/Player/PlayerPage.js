@@ -12,6 +12,7 @@ import {
     NavLink
 } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import ConversationList from '../Chat/ConversationList'
 import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
 import { campaignArray, currentPlayerId, characterArray } from '../../redux/actions'
@@ -75,7 +76,7 @@ const PlayerPage = (props) => {
                         <CharacterCollection characters={characters} currentPlayer={currentPlayer}/>
                     </Col>
                     <Col>
-                        <h1>Column 2</h1>
+                        <ConversationList />
                     </Col>
                     <Col>
                         <h1>Column 3</h1>
