@@ -5,6 +5,7 @@ import {
     characterName,
     characterClass,
     characterRace,
+    characterCreationReset,
     selectCampaign, 
     incrementStr,
     incrementDex,
@@ -20,7 +21,7 @@ import {
     decrementCha
 } from '../../redux/actions/index'
 
-const CharacterForm = (props) => {
+const CharacterForm = () => {
     const { character } = useSelector(state => ({ character: state.character }) )
     const { campaigns } = useSelector(state => ({ campaigns: state.campaigns }) )
     const { thisCampaign } = useSelector(state => ({ thisCampaign: state.campaign }) )
@@ -172,7 +173,6 @@ const CharacterForm = (props) => {
     const createCharacter = (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
-        console.log(event)
         fetch('http://localhost:3001/characters', {
             method: 'POST',
             headers: {
@@ -195,7 +195,7 @@ const CharacterForm = (props) => {
             })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => dispatch(characterCreationReset()))
     }
 
     return(

@@ -115,6 +115,23 @@ function rootReducer(state = initialState, action) {
             characters: action.payload
         }
     }
+    if(action.type === actions.CHARACTER_CREATION_RESET){
+        return {
+            ...state,
+            character: {
+                name: '',
+                primary_class: '',
+                level: 1,
+                race: '',
+                str: 10 ,
+                dex: 10 ,
+                con: 10 ,
+                int: 10 ,
+                wis: 10 ,
+                cha: 10 
+            }
+        }
+    }
     if(action.type === actions.INCREMENT_STR){
         return{
             ...state,

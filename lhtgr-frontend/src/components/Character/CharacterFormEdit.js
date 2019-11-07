@@ -72,13 +72,13 @@ export function EditCharacter (props){
         console.log(event.target.innerText)
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.str
+            let attribute = thisCharacter.str
             attribute++;
             dispatch(incrementStr(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.str
+            let attribute = thisCharacter.str
             attribute--
             dispatch(decrementStr(attribute))
             return attribute;
@@ -88,13 +88,13 @@ export function EditCharacter (props){
     const incrementDecrementDex = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.dex
+            let attribute = thisCharacter.dex
             attribute++;
             dispatch(incrementDex(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.dex
+            let attribute = thisCharacter.dex
             attribute--
             dispatch(decrementDex(attribute))
             return attribute;
@@ -104,13 +104,13 @@ export function EditCharacter (props){
     const incrementDecrementCon = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.con
+            let attribute = thisCharacter.con
             attribute++;
             dispatch(incrementCon(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.con
+            let attribute = thisCharacter.con
             attribute--
             dispatch(decrementCon(attribute))
             return attribute;
@@ -120,13 +120,13 @@ export function EditCharacter (props){
     const incrementDecrementInt = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.int
+            let attribute = thisCharacter.int
             attribute++;
             dispatch(incrementInt(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.int
+            let attribute = thisCharacter.int
             attribute--
             dispatch(decrementInt(attribute))
             return attribute;
@@ -136,13 +136,13 @@ export function EditCharacter (props){
     const incrementDecrementWis = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.wis
+            let attribute = thisCharacter.wis
             attribute++;
             dispatch(incrementWis(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.wis
+            let attribute = thisCharacter.wis
             attribute--
             dispatch(decrementWis(attribute))
             return attribute;
@@ -152,13 +152,13 @@ export function EditCharacter (props){
     const incrementDecrementCha = (event) => {
         event.preventDefault()
         if(event.target.innerText === '+'){
-            let attribute = character.cha
+            let attribute = thisCharacter.cha
             attribute++;
             dispatch(incrementCha(attribute))
             return attribute;
         }
         if(event.target.innerText === '-'){
-            let attribute = character.cha
+            let attribute = thisCharacter.cha
             attribute--
             dispatch(decrementCha(attribute))
             return attribute;
@@ -198,6 +198,7 @@ export function EditCharacter (props){
                         <FormGroup>
                             <Label for="Selected Character" tag="h3">Select Character</Label>
                             <Input type="select" name="select" bsSize="lg" id="Selected Character"onChange={e => dispatch(character(selectedCharacter(e.target.value)))}>
+                                <option>Select Character</option>
                                 {characters.map(character => {
                                     return(
                                         <option key={character.id}>{character.name}</option>
