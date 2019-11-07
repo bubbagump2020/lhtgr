@@ -3,7 +3,9 @@ import {
     CREATE_CAMPAIGN,
     PLAYER_ARRAY,
     CURRENT_PLAYER,
+    CURRENT_PLAYER_NAME,
     CURRENT_PLAYER_ID,
+    CURRENT_PLAYER_PASSWORD,
     CAMPAIGN_ARRAY,
     CAMPAIGN,
     CHARACTER,
@@ -41,6 +43,14 @@ export function playerArray(payload){
 
 export function currentPlayer(payload){
     return { type: CURRENT_PLAYER, payload}
+}
+
+export function currentPlayerName(payload){
+    return { type: CURRENT_PLAYER_NAME, payload }
+}
+
+export function currentPlayerPassword(payload){
+    return { type: CURRENT_PLAYER_PASSWORD, payload }
 }
 
 export function currentPlayerId(payload){

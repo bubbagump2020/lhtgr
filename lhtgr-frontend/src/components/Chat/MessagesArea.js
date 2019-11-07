@@ -1,11 +1,12 @@
 import React from 'react'
 import NewMessagesForm from './NewMessageForm'
+import { ListGroup, ListGroupItem } from 'reactstrap'
 
 const MessagesArea = ({ conversation: { id, title, messages}}) => {
     return(
         <div>
             <h2>{title}</h2>
-            <ul>{orderedMessages(messages)}</ul>
+            <ListGroup>{orderedMessages(messages)}</ListGroup>
             <NewMessagesForm conversation_id={id} />
         </div>
     )
@@ -18,6 +19,6 @@ const orderedMessages = messages => {
         (a, b) => new Date(a.created_at) - new Date(b.created_at)
     )
     return sortedMessages.map(message => {
-        return <li key={message.id}>{message.text}</li>
+        return <ListGroupItem key={message.id}>{message.text}</ListGroupItem>
     })
 }
