@@ -8,6 +8,8 @@ const initialState = {
     playerName: '',
     playerPassword: '',
     currentPlayer: {
+        currentPlayerName: '',
+        currentPlayerPassword: '',
         currentPlayerId: 0
     },
     togglePlayerActive: false,
@@ -47,6 +49,24 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             currentPlayer: action.payload
+        }
+    }
+    if(action.type === actions.CURRENT_PLAYER_NAME){
+        return {
+            ...state,
+            currentPlayer: {
+                ...state.currentPlayer,
+                currentPlayerName: action.payload
+            }
+        }
+    }
+    if(action.type === actions.CURRENT_PLAYER_PASSWORD){
+        return {
+            ...state,
+            currentPlayer: {
+                ...state.currentPlayer,
+                currentPlayerPassword: action.payload
+            }
         }
     }
     if(action.type === actions.CURRENT_PLAYER_ID){

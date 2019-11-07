@@ -3,13 +3,34 @@ import NewConversationForm from './NewConversationForm'
 import Cable from './Cable'
 import MessagesArea from './MessagesArea'
 import { ActionCableConsumer } from 'react-actioncable-provider'
+import { Button, Fade, Card, CardGroup, CardBody, CardTitle, Collapse } from 'reactstrap'
 
 export default class ConversationsList extends React.Component {
+
     state = {
+        fadeIn: false,
+        isOpen: false,
         conversations: [],
         activeConversation: null
     }
 
+    toggle = () => {
+      if(this.state.fadeIn === false){
+        this.setState({ fadeIn: true })
+      }
+      if(this.state.fadeIn === true){
+        this.setState({ fadeIn: false })
+      }
+    }
+
+    toggleOpen = () => {
+      if(this.state.isOpen === false){
+        this.setState({ isOpen: true})
+      }
+      if(this.state.isOpen === true){
+        this.setState({ isOpen: false})
+      }
+    }
 
     componentDidMount = () => {
         fetch('http://localhost:3001/conversations')
@@ -52,9 +73,11 @@ export default class ConversationsList extends React.Component {
                 handleReceivedMessage={this.handleReceivedMessage}
               />
             ) : null}
-            <h2>Conversations</h2>
-            <ul>{mapConversations(conversations, this.handleClick)}</ul>
-            <NewConversationForm />
+            <Button onClick={this.toggleOpen}>See Conversations List</Button>
+            <Collapse isOpen={this.state.isOpen}>
+              {mapConversations(conversations, this.handleClick)}
+              <NewConversationForm />
+            </Collapse>
             {activeConversation ? (
               <MessagesArea
                 conversation={findActiveConversation(
@@ -77,9 +100,11 @@ const findActiveConversation = (conversations, activeConversation) => {
 const mapConversations = (conversations, handleClick) => {
     return conversations.map(conversation => {
         return(
-            <li key={conversation.id} onClick={() => handleClick(conversation.id)}>
-                {conversation.title}
-            </li>
+            <Card key={conversation.id} onClick={() => handleClick(conversation.id)}>
+                <CardBody>
+                  <CardTitle>{conversation.title}</CardTitle>
+                </CardBody>
+            </Card>
         )
     })
 }

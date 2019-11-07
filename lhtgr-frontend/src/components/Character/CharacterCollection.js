@@ -11,7 +11,7 @@ export function CharacterCollection(props){
             )
         } else {
             return props.characters.map(character => {
-                if(character.player.id === props.currentPlayer){
+                if(character.player.id === props.currentPlayerId){
                     return(
                         <Card key={character.id}>
                             <CharacterCard character={character}/>

@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Divider, Segment, Grid, Form, Header} from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux'
-import { currentPlayerName, currentPlayerId } from '../redux/actions/index'
+import { currentPlayerName, currentPlayerPassword, currentPlayerId } from '../redux/actions/index'
 
 export function Login(props) {
     const [ dm, changeDM ] = useState({
-        username: '',
-        password: ''
-    })
-
-    const [ player, changePlayer ] = useState({
         username: '',
         password: ''
     })
@@ -46,8 +41,8 @@ export function Login(props) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: player.username,
-                password: player.password
+                username: currentPlayer.currentPlayerName,
+                password: currentPlayer.currentPlayerPassword
             })
         }).then(response => response.json())
           .then(data => {
@@ -78,9 +73,9 @@ export function Login(props) {
                     <Form onSubmit={loginPlayer} success warning>
                         <Header as ="h1">Player Login</Header>
                         <Form.Field label="Username" />
-                        <Form.Input placeholder="Username" type="text" value={player.username} onChange={ e => changePlayer({ ...player, username: e.target.value })} />
+                        <Form.Input placeholder="Username" type="text" value={currentPlayer.currentPlayerName} onChange={ e => dispatch(currentPlayerName(e.target.value))} />
                         <Form.Field label="Password" />
-                        <Form.Input placeholder="Password" type="password" value={player.password} onChange={ e => changePlayer({ ...player, password: e.target.value })} />
+                        <Form.Input placeholder="Password" type="password" value={currentPlayer.currentPlayerPassword} onChange={ e => dispatch(currentPlayerPassword(e.target.value))} />
                         <Button type="submit">Login</Button>
                     </Form>
                 </Grid.Column>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
+    Button,
     Collapse,
     Container,
     Col,
@@ -19,7 +20,7 @@ import { campaignArray, currentPlayerId, characterArray } from '../../redux/acti
 
 const PlayerPage = (props) => {
     const { characters } = useSelector (state => ({ characters: state.characters }) )
-    const { currentPlayer } = useSelector (state => ({ currentPlayer: state.currentPlayer.currentPlayerId }) )
+    const { currentPlayer } = useSelector (state => ({ currentPlayer: state.currentPlayer }) )
     const [ isOpen, setIsOpen ] = useState(false);
     
     const toggle = () => setIsOpen(!isOpen)
@@ -54,7 +55,7 @@ const PlayerPage = (props) => {
     return(
         <div>
             <Navbar color="secondary" light expand="md">
-                <NavbarBrand className="text-white">Welcome</NavbarBrand>
+                <NavbarBrand className="text-white">{`Welcome ${currentPlayer.currentPlayerName}`}</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar>
@@ -73,7 +74,10 @@ const PlayerPage = (props) => {
             <Container fluid>
                 <Row>
                     <Col>
-                        <CharacterCollection characters={characters} currentPlayer={currentPlayer}/>
+                        <Button onClick={toggle}>Characters</Button>
+                        <Collapse isOpen={isOpen}>
+                            <CharacterCollection characters={characters} currentPlayerId={currentPlayer.currentPlayerId}/>
+                        </Collapse>
                     </Col>
                     <Col>
                         <ConversationList />
