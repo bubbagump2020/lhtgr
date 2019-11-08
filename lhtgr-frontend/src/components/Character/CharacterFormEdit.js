@@ -1,9 +1,10 @@
 import React from 'react';
-import { Container, Row, Col,
-    Form, Button, ButtonGroup, Input, FormGroup, FormText, Label } from 'reactstrap'
+import { Container, Col,
+    Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { 
     character,
+    updatedCharacter,
     characterName,
     characterClass,
     characterLevel,
@@ -29,8 +30,27 @@ export function EditCharacter (props){
 
     const dispatch = useDispatch()
 
-    const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-        11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+    const levels = [
+        { key: 1, text: 1, value: 'lvl 1' },
+        { key: 2, text: 2, value: 'lvl 2' },
+        { key: 3, text: 3, value: 'lvl 3' },
+        { key: 4, text: 4, value: 'lvl 4' },
+        { key: 5, text: 5, value: 'lvl 5' },
+        { key: 6, text: 6, value: 'lvl 6' },
+        { key: 7, text: 7, value: 'lvl 7' },
+        { key: 8, text: 8, value: 'lvl 8' },
+        { key: 9, text: 9, value: 'lvl 9' },
+        { key: 10, text: 10, value: 'lvl 10' },
+        { key: 11, text: 11, value: 'lvl 11' },
+        { key: 12, text: 12, value: 'lvl 12' },
+        { key: 13, text: 13, value: 'lvl 13' },
+        { key: 14, text: 14, value: 'lvl 14' },
+        { key: 15, text: 15, value: 'lvl 15' },
+        { key: 16, text: 16, value: 'lvl 16' },
+        { key: 17, text: 17, value: 'lvl 17' },
+        { key: 18, text: 18, value: 'lvl 18' },
+        { key: 19, text: 19, value: 'lvl 19' },
+        { key: 20, text: 20, value: 'lvl 20' }
     ]
 
     const classes = [
@@ -188,184 +208,100 @@ export function EditCharacter (props){
             })
         })
             .then(response => response.json())
+            .then(character => {
+                characters.map(changedCharacter => {
+                    if(changedCharacter.id === character.id){
+                        dispatch(updatedCharacter(character))
+                    }
+                })
+                dispatch(updatedCharacter(character))
+            })
     }
 
     return(
-        <Container>
-            <Row>
-                <Form onSubmit={e => editCharacter(e)}>
-                    <Col>
-                        <FormGroup>
-                            <Label for="Selected Character" tag="h3">Select Character</Label>
-                            <Input type="select" name="select" bsSize="lg" id="Selected Character"onChange={e => dispatch(character(selectedCharacter(e.target.value)))}>
-                                <option>Select Character</option>
-                                {characters.map(character => {
-                                    return(
-                                        <option key={character.id}>{character.name}</option>
-                                    )
-                                })}
-                            </Input>
-                            <Label for="Character Name" tag="h3">Character Name</Label>
-                            <Input type="text" placeholder={`Character Name`} bsSize="lg" onChange={e => dispatch(characterName(e.target.value))}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="Character Class" tag="h3">Character Class</Label>
-                            <Input type="select" bsSize="lg" onChange={e => dispatch(characterClass(e.target.value))}>
-                                {classes.map(selectedClass => {
-                                    return(
-                                        <option key={selectedClass.key}>{selectedClass.text}</option>
-                                    )
-                                })}
-                            </Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="Character Level" tag="h3">Character Level</Label>
-                            <Input type="select" bsSize="lg" onChange={e => dispatch(characterLevel(e.target.value))}>
-                                {levels.map(level => {
-                                    return(
-                                        <option key={level}>{level}</option>
-                                    )
-                                })}
-                            </Input>
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup inline>
-                            <Label for="strength" tag="h4">Strength</Label>
-                            <Label for="strength value" tag="h4">{thisCharacter.str}</Label>
-                            <ButtonGroup>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementStr(e)
-                                    }
-                                }>
-                                    +
-                                </Button>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementStr(e)
-                                    }
-                                }>
-                                    -
-                                </Button>
-                            </ButtonGroup>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="strength" tag="h4">Dexterity</Label>
-                            <Label for="strength value" tag="h4">{thisCharacter.dex}</Label>
-                            <ButtonGroup>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementDex(e)
-                                    }
-                                }>
-                                    +
-                                </Button>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementDex(e)
-                                    }
-                                }>
-                                    -
-                                </Button>
-                            </ButtonGroup>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="strength" tag="h4">Constitution</Label>
-                            <Label for="strength value" tag="h4">{thisCharacter.con}</Label>
-                            <ButtonGroup>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementCon(e)
-                                    }
-                                }>
-                                    +
-                                </Button>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementCon(e)
-                                    }
-                                }>
-                                    -
-                                </Button>
-                            </ButtonGroup>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="strength" tag="h4">Intelligence</Label>
-                            <Label for="strength value" tag="h4">{thisCharacter.int}</Label>
-                            <ButtonGroup>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementInt(e)
-                                    }
-                                }>
-                                    +
-                                </Button>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementInt(e)
-                                    }
-                                }>
-                                    -
-                                </Button>
-                            </ButtonGroup>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="strength" tag="h4">Wisdom</Label>
-                            <Label for="strength value" tag="h4">{thisCharacter.wis}</Label>
-                            <ButtonGroup>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementWis(e)
-                                    }
-                                }>
-                                    +
-                                </Button>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementWis(e)
-                                    }
-                                }>
-                                    -
-                                </Button>
-                            </ButtonGroup>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="strength" tag="h4">Charisma</Label>
-                            <Label for="strength value" tag="h4">{thisCharacter.cha}</Label>
-                            <ButtonGroup>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementCha(e)
-                                    }
-                                }>
-                                    +
-                                </Button>
-                                <Button onClick={
-                                    e => {
-                                        e.preventDefault()
-                                        incrementDecrementCha(e)
-                                    }
-                                }>
-                                    -
-                                </Button>
-                            </ButtonGroup>
-                        </FormGroup>
-                    </Col>
-                    <Button>Edit!</Button>
-                </Form>
-            </Row>
+        <Container fluid>
+            <Form align="center" onSubmit={e => editCharacter(e)}>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label>Select Adventurer</Form.Label>
+                        <Form.Control as="select" value={-1} onChange={e => dispatch(character(selectedCharacter(e.target.value)))}>
+                            <option disabled value={-1} key={-1}>Select Adventurer</option>
+                            {characters.map(selectCharacter => {
+                                return(
+                                    <option key={selectCharacter.id}>{selectCharacter.name}</option>
+                                )
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col} >
+                        <Form.Label>Adventurer Name</Form.Label>
+                        <Form.Control type="text" placeholder={thisCharacter.name} onChange={e => dispatch(characterName(e.target.value))} />
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col} >
+                        <Form.Label>Adventurer Class</Form.Label>
+                        <Form.Control as="select" onChange={e => dispatch(characterClass(e.target.value))}>
+                            <option >Select Class</option>
+                            {classes.map(selectedClass => {
+                                return(
+                                    <option key={selectedClass.key}>{selectedClass.text}</option>
+                                )
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col} >
+                        <Form.Label>Adventurer Level</Form.Label>
+                        <Form.Control as="select" onChange={e => dispatch(characterLevel(e.target.value))}>
+                            <option >Select Level</option>
+                            {levels.map(selectedClass => {
+                                return(
+                                    <option key={selectedClass.key}>{selectedClass.text}</option>
+                                )
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Strength</h4></Form.Label>
+                            <h4>{thisCharacter.str}</h4>
+                            <Button onClick={e => incrementDecrementStr(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementStr(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Dexterity</h4></Form.Label>
+                            <h4>{thisCharacter.dex}</h4>
+                            <Button onClick={e => incrementDecrementDex(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementDex(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Constitution</h4></Form.Label>
+                            <h4>{thisCharacter.con}</h4>
+                            <Button onClick={e => incrementDecrementCon(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementCon(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Intelligence</h4></Form.Label>
+                            <h4>{thisCharacter.int}</h4>
+                            <Button onClick={e => incrementDecrementInt(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementInt(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Wisdom</h4></Form.Label>
+                            <h4>{thisCharacter.wis}</h4>
+                            <Button onClick={e => incrementDecrementWis(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementWis(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Charisma</h4></Form.Label>
+                            <h4>{thisCharacter.cha}</h4>
+                            <Button onClick={e => incrementDecrementCha(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementCha(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                </Form.Row>
+                <Button type="submit">Edit Character</Button>
+            </Form>
         </Container>
     )
 

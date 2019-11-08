@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import {
+    Accordion,
     Button,
-    Collapse,
-    Container,
+    Card,
     Col,
-    Row,
+    Container,
     Nav,
     Navbar,
-    NavbarBrand,
-    NavbarToggler,
-    NavItem,
-    NavLink
-} from 'reactstrap'
+    Row
+    
+} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import ConversationList from '../Chat/ConversationList'
+import CharacterFormNew from '../Character/CharacterFormNew'
 import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
 import { campaignArray, currentPlayerId, characterArray } from '../../redux/actions'
+import { EditCharacter } from '../Character/CharacterFormEdit'
 
 const PlayerPage = (props) => {
+    const [ charactersState, setCharactersState ] = useState()
     const { characters } = useSelector (state => ({ characters: state.characters }) )
+    const { campaigns } = useSelector (state => ({ campaigns: state.campaigns }))
     const { currentPlayer } = useSelector (state => ({ currentPlayer: state.currentPlayer }) )
-    const [ isOpen, setIsOpen ] = useState(false);
-    
-    const toggle = () => setIsOpen(!isOpen)
 
     const dispatch = useDispatch()
 
@@ -42,7 +41,9 @@ const PlayerPage = (props) => {
             }
         })
             .then( response => response.json() )
-            .then( characters => dispatch(characterArray(characters)))
+            .then( characters => {
+                dispatch(characterArray(characters))
+            })
         fetch(`http://localhost:3001/campaigns`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -53,41 +54,66 @@ const PlayerPage = (props) => {
     }, [props, dispatch])
 
     return(
-        <div>
-            <Navbar color="secondary" light expand="md">
-                <NavbarBrand className="text-white">{`Welcome ${currentPlayer.currentPlayerName}`}</NavbarBrand>
-                <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink className="text-white" tag={Link} to="/characters/new">Character Creation</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink className="text-white" tag={Link} to="/characters/edit">Edit Character</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} to="/" className="text-white">Logout</NavLink>
-                        </NavItem>
+        <Container fluid>
+            <Navbar bg="light"expand="lg">
+                <Navbar.Brand >{`Welcome ${currentPlayer.currentPlayerName}`}</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto" navbar>
+                        <Nav.Link  href="/" >Logout</Nav.Link>
                     </Nav>
-                </Collapse>
+                </Navbar.Collapse>
             </Navbar>
-            <Container fluid>
-                <Row>
-                    <Col>
-                        <Button onClick={toggle}>Characters</Button>
-                        <Collapse isOpen={isOpen}>
-                            <CharacterCollection characters={characters} currentPlayerId={currentPlayer.currentPlayerId}/>
-                        </Collapse>
-                    </Col>
-                    <Col>
-                        <ConversationList />
-                    </Col>
-                    <Col>
-                        <h1>Column 3</h1>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+            <Row>
+                <Col>
+                    <Accordion>
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    Create Character
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                    <CharacterFormNew campaigns={campaigns} />
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                    <Accordion>
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                                    Edit Character
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="1">
+                                <EditCharacter />
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                </Col>
+                <Col>
+                    <Accordion>
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    Characters
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                    <CharacterCollection characters={characters} currentPlayerId={currentPlayer.currentPlayerId} />
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                </Col>
+                <Col>
+                    <h1>Chat</h1>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

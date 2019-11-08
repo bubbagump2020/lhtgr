@@ -141,6 +141,12 @@ function rootReducer(state = initialState, action) {
             character: action.payload
         }
     }
+    if(action.type === actions.UPDATED_CHARACTER){
+        return {
+            ...state,
+            character: action.payload
+        }
+    }
     if(action.type === actions.CHARACTER_NAME){
         return {
             ...state,
