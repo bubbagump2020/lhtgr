@@ -5,8 +5,15 @@ const initialState = {
     campaigns: [],
     characters: [],
     customCharClass: '',
-    playerName: '',
-    playerPassword: '',
+    player: {
+        name: '',
+        password: '',
+    },
+    currentDm: {
+        dmName: '',
+        dmPassword: '',
+        dmId: 0
+    },
     currentPlayer: {
         currentPlayerName: '',
         currentPlayerPassword: '',
@@ -32,17 +39,55 @@ const initialState = {
 }
 
 function rootReducer(state = initialState, action) {
-    if(action.type === actions.CREATE_PLAYER){
+    if(action.type === actions.PLAYER_NAME){
         return {
             ...state,
-            playerName: action.payload,
-            playerPassword: action.payload
+            player: {
+                ...state.player,
+                name: action.payload
+            }
+        }
+    }
+    if(action.type === actions.PLAYER_PASSWORD){
+        return {
+            ...state,
+            player: {
+                ...state.player,
+                password: action.payload
+            }
         }
     }
     if(action.type === actions.PLAYER_ARRAY){
         return {
             ...state,
             players: action.payload
+        }
+    }
+    if(action.type === actions.CURRENT_DM_NAME){
+        return {
+            ...state,
+            currentDm: {
+                ...state.currentDm,
+                dmName: action.payload
+            }
+        }
+    }
+    if(action.type === actions.CURRENT_DM_PASSWORD){
+        return {
+            ...state,
+            currentDm: {
+                ...state.currentDm,
+                dmPassword: action.payload
+            }
+        }
+    }
+    if(action.type === actions.CURRENT_DM_ID){
+        return {
+            ...state,
+            currentDm: {
+                ...state.currentDm,
+                dmId: action.payload
+            }
         }
     }
     if(action.type === actions.CURRENT_PLAYER){

@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
-import { Button, Divider, Segment, Grid, Form, Header} from 'semantic-ui-react';
+import React from 'react'
+import { Button, Form, Container, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { currentPlayerName, currentPlayerPassword, currentPlayerId } from '../redux/actions/index'
+import { currentPlayerName,
+    currentPlayerPassword,
+    currentPlayerId,
+    currentDmName,
+    currentDmPassword,
+    currentDmId
+} from '../redux/actions/index'
 
 export function Login(props) {
-    const [ dm, changeDM ] = useState({
-        username: '',
-        password: ''
-    })
 
     const dispatch = useDispatch()
     const { currentPlayer } = useSelector(state => ({ currentPlayer: state.currentPlayer }))
+    const { dm } = useSelector( state =>({ dm: state.currentDm }))
 
     function loginDM(e){
         e.preventDefault()
@@ -20,8 +23,8 @@ export function Login(props) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: dm.username,
-                password: dm.password
+                username: dm.dmName,
+                password: dm.dmPassword
             })
         }).then(response => response.json())
           .then(data => {
@@ -29,6 +32,7 @@ export function Login(props) {
                     document.cookie = data.id
                     localStorage.setItem('token', data.token)
                     props.history.push(`/dungeon_masters/${data.id}`)
+                    dispatch(currentDmId(data.id))
                 }
           } )
     }
@@ -53,36 +57,38 @@ export function Login(props) {
                   dispatch(currentPlayerId(data.id))
               }
           })
-       
     }
 
     return(
-        <Segment>
-            <Grid columns={2} relaxed="very">
-                <Grid.Column>
-                    <Form onSubmit={loginDM} success warning>
-                        <Header as="h1">Dungeon Master Login</Header>
-                        <Form.Field label="Username" />
-                        <Form.Input placeholder="Username" type="text" value={dm.username} onChange={ e => changeDM({ ...dm, username: e.target.value })} />
-                        <Form.Field label="Password" />
-                        <Form.Input placeholder="Password" type="password" value={dm.password} onChange={ e => changeDM({ ...dm, password: e.target.value })} />
-                        <Button type="submit">Login</Button>
+        <Container fluid>
+             <Col xs={12}>
+                 <Row>
+                    <Form onSubmit={loginDM}>
+                        <Form.Group>
+                            <Form.Label>DM Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Name" onChange={e => dispatch(currentDmName(e.target.value))}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" onChange={e => dispatch(currentDmPassword(e.target.value))}/>
+                        </Form.Group>
+                        <Button type="submit">DM Login</Button>
                     </Form>
-                </Grid.Column>
-                <Grid.Column>
-                    <Form onSubmit={loginPlayer} success warning>
-                        <Header as ="h1">Player Login</Header>
-                        <Form.Field label="Username" />
-                        <Form.Input placeholder="Username" type="text" value={currentPlayer.currentPlayerName} onChange={ e => dispatch(currentPlayerName(e.target.value))} />
-                        <Form.Field label="Password" />
-                        <Form.Input placeholder="Password" type="password" value={currentPlayer.currentPlayerPassword} onChange={ e => dispatch(currentPlayerPassword(e.target.value))} />
-                        <Button type="submit">Login</Button>
+                 </Row>
+                 <Row>
+                    <Form onSubmit={loginPlayer}>
+                        <Form.Group>
+                            <Form.Label>Player Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Name" onChange={e => dispatch(currentPlayerName(e.target.value))}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" onChange={e => dispatch(currentPlayerPassword(e.target.value))}/>
+                        </Form.Group>
+                        <Button type="submit">Player Login</Button>
                     </Form>
-                </Grid.Column>
-            </Grid>
-            <Divider vertical/>
-        </Segment>
+                 </Row>
+             </Col>
+        </Container>        
     )
-    
 }
-
