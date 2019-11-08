@@ -1,7 +1,11 @@
 import { 
-    CREATE_PLAYER,
+    PLAYER_NAME,
+    PLAYER_PASSWORD,
     CREATE_CAMPAIGN,
     PLAYER_ARRAY,
+    CURRENT_DM_NAME,
+    CURRENT_DM_PASSWORD,
+    CURRENT_DM_ID,
     CURRENT_PLAYER,
     CURRENT_PLAYER_NAME,
     CURRENT_PLAYER_ID,
@@ -29,8 +33,12 @@ import {
     DECREMENT_CHA
 } from '../constants/action-types'
 
-export function createPlayer(payload){
-    return { type: CREATE_PLAYER, payload }
+export function playerName(payload){
+    return { type: PLAYER_NAME, payload }
+}
+
+export function playerPassword(payload){
+    return { type: PLAYER_PASSWORD, payload }
 }
 
 export function createCampaign(payload){
@@ -39,6 +47,18 @@ export function createCampaign(payload){
 
 export function playerArray(payload){
     return { type: PLAYER_ARRAY, payload }
+}
+
+export function currentDmName(payload){
+    return { type: CURRENT_DM_NAME, payload }
+}
+
+export function currentDmPassword(payload){
+    return { type: CURRENT_DM_PASSWORD, payload }
+}
+
+export function currentDmId(payload){
+    return { type: CURRENT_DM_ID, payload }
 }
 
 export function currentPlayer(payload){
