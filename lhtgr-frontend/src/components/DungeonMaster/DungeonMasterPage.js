@@ -3,14 +3,13 @@ import {
     Accordion,
     Button,
     Card,
-    CardDeck,
-    CardGroup,
     Col,
     Container,
+    Form,
     Navbar,
     Nav,
-    Row,
-    Form
+    Row
+    
 } from 'react-bootstrap';
 import { PlayerCard } from '../Player/PlayerCard'
 import { Link } from 'react-router-dom'
@@ -30,17 +29,17 @@ const DungeonMasterPage = (props) => {
     const dispatch = useDispatch()
     
     useEffect(() => {
-        fetch(`http://localhost:3001/dungeon_masters/${props.match.params.id}/players`)
+        fetch(`http://localhost:3001/players`)
             .then(response => response.json())
             .then(players => dispatch(playerArray(players)))
-        fetch(`http://localhost:3001/dungeon_masters/${props.match.params.id}/campaigns`)
+        fetch(`http://localhost:3001/campaigns`)
             .then(response => response.json())
             .then(campaigns => dispatch(campaignArray(campaigns)))
     }, [])
 
     const handlePlayerCreation = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:3001/dungeon_masters/${props.match.params.id}/players`,{
+        fetch(`http://localhost:3001/players`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

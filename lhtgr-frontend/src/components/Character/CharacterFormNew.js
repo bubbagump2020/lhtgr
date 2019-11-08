@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form, Header, Button, Grid, Segment } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { 
     characterName,
@@ -20,10 +19,11 @@ import {
     decrementWis,
     decrementCha
 } from '../../redux/actions/index'
+import { Container, Form, Button, Col } from 'react-bootstrap';
 
-const CharacterForm = () => {
+const CharacterForm = (props) => {
     const { character } = useSelector(state => ({ character: state.character }) )
-    const { campaigns } = useSelector(state => ({ campaigns: state.campaigns }) )
+    const campaigns = props.campaigns
     const { thisCampaign } = useSelector(state => ({ thisCampaign: state.campaign }) )
     const { currentPlayer } = useSelector(state => ({ currentPlayer: state.currentPlayer }) )
 
@@ -53,21 +53,10 @@ const CharacterForm = () => {
         { key: 'huma', text: 'Human', value: 'human'}
     ]
 
-    const listCampaigns = () => {
-        let campaignArray = []
-        campaigns.map(campaign=> {
-            campaign.key = campaign.name
-            campaign.text = campaign.name
-            campaign.value = campaign.name
-            campaignArray.push(campaign)
-        })
-        return campaignArray
-    }
-
     const selectedCampaign = () => {
         let campaignId = 0
         campaigns.map(campaign => {
-            if(campaign.name === thisCampaign.value){
+            if(campaign.name === thisCampaign){
                 campaignId = campaign.id
             }
         })
@@ -199,174 +188,88 @@ const CharacterForm = () => {
     }
 
     return(
-        <Grid divided columns="equal" textAlign="center" divided columns={2}>
-            <Grid.Row stretched>
-                <Grid.Column width="4">
-                    <Header as="h1">Character Creation</Header>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row stretched>
-                <Form onSubmit={e => createCharacter(e)} success>
-                    <Grid.Column>
-                        <Form.Group widths="equal">
-                            <Segment.Group horizontal>
-                                <Segment raised>
-                                    <Form.Input label="Character Name" placeholder="Character Name" type="text" onChange={e => dispatch(characterName(e.target.value))} />
-                                </Segment>
-                                <Segment raised>
-                                    <Form.Select label="Adventure" placeholder="Adventures" options={listCampaigns()} onChange={e => dispatch(selectCampaign({value: e.target.innerText}))} />
-                                </Segment>
-                                <Segment raised>
-                                    <Form.Select label="Race" placeholder="Race" options={races} onChange={e => dispatch(characterRace({value: e.target.innerText}))}/>
-                                </Segment>
-                                <Segment raised>
-                                    <Form.Select label="Class" placeholder="Class" options={classes} onChange={e => dispatch(characterClass({value: e.target.innerText}))}/>
-                                </Segment>
-                            </Segment.Group>
-                        </Form.Group>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Form.Group>
-                            <Segment.Group horizontal>
-                                <Segment raised>
-                                    <Header as="h3" textAlign="center">Strength</Header>
-                                    <Header as="h3" textAlign="center">{character.str}</Header>
-                                    <Button.Group>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementStr(e)
-                                            }
-                                        }>
-                                            +
-                                        </Button>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementStr(e)
-                                            }
-                                        }>
-                                            -
-                                        </Button>
-                                    </Button.Group>
-                                </Segment>
-                                <Segment raised>
-                                    <Header as="h3" textAlign="center">Dexterity</Header>
-                                    <Header as="h3" textAlign="center">{character.dex}</Header>
-                                    <Button.Group>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementDex(e)
-                                            }
-                                        }>
-                                            +
-                                        </Button>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementDex(e)
-                                            }
-                                        }>
-                                            -
-                                        </Button>
-                                    </Button.Group>
-                                </Segment>
-                                <Segment raised>
-                                    <Header as="h3" textAlign="center">Constitution</Header>
-                                    <Header as="h3" textAlign="center">{character.con}</Header>
-                                    <Button.Group>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementCon(e)
-                                            }
-                                        }>
-                                            +
-                                        </Button>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementCon(e)
-                                            }
-                                        }>
-                                            -
-                                        </Button>
-                                    </Button.Group>
-                                </Segment>
-                                <Segment raised>
-                                    <Header as="h3" textAlign="center">Intelligence</Header>
-                                    <Header as="h3" textAlign="center">{character.int}</Header>
-                                    <Button.Group>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementInt(e)
-                                            }
-                                        }>
-                                            +
-                                        </Button>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementInt(e)
-                                            }
-                                        }>
-                                            -
-                                        </Button>
-                                    </Button.Group>
-                                </Segment>
-                                <Segment raised>
-                                    <Header as="h3" textAlign="center">Wisdom</Header>
-                                    <Header as="h3" textAlign="center">{character.wis}</Header>
-                                    <Button.Group>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementWis(e)
-                                            }
-                                        }>
-                                            +
-                                        </Button>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementWis(e)
-                                            }
-                                        }>
-                                            -
-                                        </Button>
-                                    </Button.Group>
-                                </Segment>
-                                <Segment raised>
-                                    <Header as="h3" textAlign="center">Charisma</Header>
-                                    <Header as="h3" textAlign="center">{character.cha}</Header>
-                                    <Button.Group>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementCha(e)
-                                            }
-                                        }>
-                                            +
-                                        </Button>
-                                        <Button onClick={
-                                            e => {
-                                                e.preventDefault()
-                                                incrementDecrementCha(e)
-                                            }
-                                        }>
-                                            -
-                                        </Button>
-                                    </Button.Group>
-                                </Segment>
-                            </Segment.Group>
-                        </Form.Group>
-                    </Grid.Column>
-                    <Button type="submit">Create!</Button>
-                </Form>
-            </Grid.Row>
-        </Grid>
+        <Container fluid>
+            <Form  align="center">
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label>Adventurer Name</Form.Label>
+                        <Form.Control type="text" placeholder="Adventurer Name" onChange={e => dispatch(characterName(e.target.value))}/>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Adventurer Race</Form.Label>
+                        <Form.Control value={-1} as="select" onChange={e => dispatch(characterRace(e.target.value))}>
+                            <option disabled value={-1} key={-1}>Select Race</option>
+                            {races.map(race => {
+                                return(
+                                    <option key={race.key}>{race.text}</option>
+                                )
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label>Adventure</Form.Label>
+                        <Form.Control value={-1} as="select" onChange={e => dispatch(selectCampaign(e.target.value))}>
+                            <option disabled value={-1} key={-1}>Select Adventure</option>
+                            {campaigns.map(campaign => {
+                                return(
+                                    <option key={campaign.id}>{campaign.name}</option>
+                                )
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Adventurer Class</Form.Label>
+                        <Form.Control as="select" value={-1} onChange={e => dispatch(characterClass(e.target.value))}>
+                            <option disabled value={-1} key={-1}>Select Class</option>
+                            {classes.map(thisClass => {
+                                return(
+                                    <option key={thisClass.key}>{thisClass.text}</option>
+                                )
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Strength</h4></Form.Label>
+                            <h4>{character.str}</h4>
+                            <Button onClick={e => incrementDecrementStr(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementStr(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Dexterity</h4></Form.Label>
+                            <h4>{character.dex}</h4>
+                            <Button onClick={e => incrementDecrementDex(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementDex(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Constitution</h4></Form.Label>
+                            <h4>{character.con}</h4>
+                            <Button onClick={e => incrementDecrementCon(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementCon(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Intelligence</h4></Form.Label>
+                            <h4>{character.int}</h4>
+                            <Button onClick={e => incrementDecrementInt(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementInt(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Wisdom</h4></Form.Label>
+                            <h4>{character.wis}</h4>
+                            <Button onClick={e => incrementDecrementWis(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementWis(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label><h4>Charisma</h4></Form.Label>
+                            <h4>{character.cha}</h4>
+                            <Button onClick={e => incrementDecrementCha(e)}><h4>+</h4></Button><Button onClick={e => incrementDecrementCha(e)}><h4>-</h4></Button>
+                    </Form.Group>
+                </Form.Row>
+                <Button type="submit">Create Character</Button>
+            </Form>
+        </Container>
     )
 }
 

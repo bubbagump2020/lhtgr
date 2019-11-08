@@ -13,6 +13,7 @@ import {
     CAMPAIGN_ARRAY,
     CAMPAIGN,
     CHARACTER,
+    UPDATED_CHARACTER,
     CHARACTER_NAME,
     CHARACTER_CLASS,
     CHARACTER_RACE,
@@ -87,6 +88,10 @@ export function characterArray(payload){
 
 export function character(payload){
     return { type: CHARACTER, payload }
+}
+
+export function updatedCharacter(payload){
+    return { type: UPDATED_CHARACTER, payload }
 }
 
 export function characterName(payload){

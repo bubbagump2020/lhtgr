@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :dungeon_masters do
-    resources :campaigns
-    resources :players do
-      resources :characters
-    end
-  end
-  
+  resources :dungeon_masters 
+  resources :campaigns
+  resources :players
+  resources :characters
   
   
   resources(:conversations)
