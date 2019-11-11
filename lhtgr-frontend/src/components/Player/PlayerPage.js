@@ -10,7 +10,7 @@ import {
     Row
     
 } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Widget } from 'react-chat-widget'
 import ConversationList from '../Chat/ConversationList'
 import CharacterFormNew from '../Character/CharacterFormNew'
 import { CharacterCollection } from '../Character/CharacterCollection'
@@ -25,6 +25,11 @@ const PlayerPage = (props) => {
     const { currentPlayer } = useSelector (state => ({ currentPlayer: state.currentPlayer }) )
 
     const dispatch = useDispatch()
+
+    const handleNewUserMessage = (newMessage) => {
+        console.log(`New message incoming! ${newMessage}`)
+    }
+
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -110,7 +115,7 @@ const PlayerPage = (props) => {
                     </Accordion>
                 </Col>
                 <Col>
-                    <h1>Chat</h1>
+                    <Widget handleNewUserMessage={handleNewUserMessage}/>
                 </Col>
             </Row>
         </Container>
