@@ -4,10 +4,8 @@ Rails.application.routes.draw do
   resources :campaigns
   resources :players
   resources :characters
-  
-  
-  resources(:conversations)
-  resources(:messages)
+  resources :chat_rooms
+  resources :messages
   mount ActionCable.server => '/cable'
   post('/dm_login', to: 'authentication#dm_login')
   post('/player_login', to: 'authentication#player_login')
