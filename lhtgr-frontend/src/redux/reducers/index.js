@@ -1,6 +1,7 @@
 import * as actions from '../constants/action-types'
 
 const initialState = {
+    selectedPlayer: {},
     players: [],
     campaigns: [],
     characters: [],
@@ -20,9 +21,7 @@ const initialState = {
         currentPlayerId: 0
     },
     togglePlayerActive: false,
-    campaign: {
-        value: ''
-    },
+    campaign: {},
     toggleCampaignActive: false,
     character: {
         name: '',
@@ -39,6 +38,12 @@ const initialState = {
 }
 
 function rootReducer(state = initialState, action) {
+    if(action.type === actions.PLAYER){
+        return {
+            ...state,
+            selectedPlayer: action.payload
+        }
+    }
     if(action.type === actions.PLAYER_NAME){
         return {
             ...state,
@@ -141,6 +146,24 @@ function rootReducer(state = initialState, action) {
             character: action.payload
         }
     }
+    if(action.type === actions.ADD_PLAYER_TO_CHARACTER){
+        return {
+            ...state,
+            character: {
+                ...state.character,
+                player: action.payload
+            }
+        }
+    }
+    if(action.type === actions.ADD_CAMPAIGN_TO_CHARACTER){
+        return {
+            ...state,
+            character: {
+                ...state.character,
+                campaign: action.payload
+            }
+        }
+    }
     if(action.type === actions.UPDATED_CHARACTER){
         return {
             ...state,
@@ -184,6 +207,14 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             characters: action.payload
+        }
+    }
+    if(action.type === actions.ADD_TO_CHARACTER_ARRAY){
+        return {
+            ...state,
+            characters: [
+                ...state.characters, action.payload
+            ]
         }
     }
     if(action.type === actions.CHARACTER_CREATION_RESET){

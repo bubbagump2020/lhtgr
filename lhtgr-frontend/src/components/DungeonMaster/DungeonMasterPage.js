@@ -17,15 +17,16 @@ import PlayerForm from '../Player/PlayerForm'
 import ConversationList from '../Chat/ConversationList'
 import { CampaignCard } from '../Campaign/CampaignCard'
 import { useSelector, useDispatch } from 'react-redux'
-import { createPlayer, playerArray, campaignArray, playerName, playerPassword } from '../../redux/actions/index'
+import { createPlayer, playerArray, campaignArray, playerName, playerPassword, campaign } from '../../redux/actions/index'
 
 
 const DungeonMasterPage = (props) => {
     const { player } = useSelector(state => ({ player: state.player }))
     const { players } = useSelector(state => ({ players: state.players}))
-    const { campaign } = useSelector(state => ({ campaign: state.campaign.value }))
+    const { newCampaign } = useSelector(state => ({ newCampaign: state.campaign }))
     const { campaigns } = useSelector(state => ({ campaigns: state.campaigns}))
-
+    const { dm } = useSelector(state => ({ dm: state.currentDm}))
+    console.log(dm)
     const dispatch = useDispatch()
     
     useEffect(() => {
@@ -51,6 +52,20 @@ const DungeonMasterPage = (props) => {
             })
         }).then(response => response.json())
           .then(data => console.log(data))
+    }
+
+    const handleCampaignCreation = (e) => {
+        e.preventDefault()
+        fetch('http://localhost:3001/campaigns', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                dungeon_master_id: dm.dmId,
+                name: newCampaign
+            })
+        }).then(response => response.json())
     }
 
     
@@ -100,17 +115,17 @@ const DungeonMasterPage = (props) => {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="1">
                                     <Card.Body>
-                                        <Form>
+                                        <Form onSubmit={handleCampaignCreation}>
                                             <Form.Group>
                                                 <Form.Label>Campaign Name</Form.Label>
-                                                <Form.Control type="text" placeholder="Campaign Name" />
+                                                <Form.Control type="text" placeholder="Campaign Name" onChange={e => dispatch(campaign(e.target.value))}/>
                                                 <Form.Text>We're going on an adventure!</Form.Text>
                                             </Form.Group>
-                                            <Form.Group>
+                                            {/* <Form.Group>
                                                 <Form.Label>Campaign Description</Form.Label>
                                                 <Form.Control as="textarea" rows="3" />
                                                 <Form.Text>Campaign Description, please!</Form.Text>
-                                            </Form.Group>
+                                            </Form.Group> */}
                                             <Button type="submit">Create Campaign</Button>
                                         </Form>
                                     </Card.Body>

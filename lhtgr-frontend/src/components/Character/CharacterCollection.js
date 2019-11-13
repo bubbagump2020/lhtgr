@@ -9,29 +9,30 @@ import { Container } from 'semantic-ui-react'
 import { useSelector } from 'react-redux'
 
 export function CharacterCollection(props){
-
+    // console.log(props)
+    const { characters } = useSelector(state => ({ characters: state.characters }))
     const { changedCharacter } = useSelector(state => ({changedCharacter: state.character}))
-    console.log(changedCharacter)
-
+    console.log(characters)
     const createCharacterCards = () => {
-        if(props.characters.length === 0){
+        if(characters.length === 0){
             return(
                 <Spinner animation="grow"/>
             )
         } else {
-            return props.characters.map(character => {
-                if(character.player.id === props.currentPlayerId){
+            return characters.map(character => {
+                // console.log(character)
+                if(character.player_id === props.selectedPlayer.id){
                     return(
-                        <Container fluid>
-                            <Card key={character.id}>
+                        <Container key={character.name} fluid>
+                            <Card>
                                 <CharacterCard character={character}/>
                             </Card>
                         </Container>
                     )
-                } else if (character.id === changedCharacter.id){
+                } else if (character.id === changedCharacter.name){
                     return(
-                        <Container fluid>
-                            <Card key={character.id}>
+                        <Container key={character.id} fluid>
+                            <Card>
                                 <CharacterCard changedCharacter={changedCharacter} />
                             </Card>
                         </Container>
