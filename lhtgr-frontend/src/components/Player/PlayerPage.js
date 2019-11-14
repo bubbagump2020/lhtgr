@@ -15,6 +15,9 @@ import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
 import { campaignArray, currentPlayerId, characterArray, playerArray, player } from '../../redux/actions'
 import { EditCharacter } from '../Character/CharacterFormEdit'
+import MessageWindow from '../Chat/MessageWindow'
+import MessageForm from '../Chat/MessageForm'
+
 
 const PlayerPage = (props) => {
     const [ charactersState, setCharactersState ] = useState()
@@ -124,7 +127,23 @@ const PlayerPage = (props) => {
                     </Accordion>
                 </Col>
                 <Col>
-                    <h1>Chat</h1>
+                <Accordion>
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                        Chat
+                                    </Accordion.Toggle>
+                                    <Accordion.Collapse eventKey="0">
+                                        <Card.Body>
+                                            <MessageWindow />
+                                            <Row>
+                                                <MessageForm />
+                                            </Row>
+                                        </Card.Body>
+                                    </Accordion.Collapse>
+                                </Card.Header>
+                            </Card>
+                        </Accordion>
                 </Col>
             </Row>
         </Container>

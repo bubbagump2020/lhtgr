@@ -7,12 +7,14 @@ class MessagesController < ApplicationController
 
     def create
         message = Message.create(message_params)
-        ActionCable.server.broadcast 'messages_channel'
+        # byebug
         render json: message
+        ActionCable.server.broadcast 'messages_channel', message
+       
     end
 
     def message_params
-        params.permit(:text, :player_id, :dungeon_master_id, :created_at)
+        params.permit(:text)
     end
 
 end

@@ -51,12 +51,8 @@ ActiveRecord::Schema.define(version: 2019_11_14_011347) do
 
   create_table "messages", force: :cascade do |t|
     t.string "text"
-    t.bigint "player_id", null: false
-    t.bigint "dungeon_master_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["dungeon_master_id"], name: "index_messages_on_dungeon_master_id"
-    t.index ["player_id"], name: "index_messages_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -68,6 +64,4 @@ ActiveRecord::Schema.define(version: 2019_11_14_011347) do
     t.index ["dungeon_master_id"], name: "index_players_on_dungeon_master_id"
   end
 
-  add_foreign_key "messages", "dungeon_masters"
-  add_foreign_key "messages", "players"
 end
