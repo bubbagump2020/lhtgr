@@ -9,6 +9,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
+document.body.style = "background: cadetblue"
+
 ReactDOM.render(
         <Provider store={store}>
             <ActionCableProvider url="ws://localhost:3001/cable">

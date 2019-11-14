@@ -32,19 +32,19 @@ class MessageWindow extends React.Component {
     showMessages = () => {
         if(this.state.messages.length === 0){
             return(
-                <Container>
+                <Container fluid>
                     Loading Messages
                 </Container>
             )
         } else {
             return this.state.messages.map( message => {
                 return(
-                    <Container fluid >
-                        <Card key={message.id} >
-                            <Card.Body>
+                    <Container fluid width="">
+                        <Card key={message.id} border="dark" >
+                            <Card.Body style={{color: "bisque", backgroundColor: "cadetblue"}}>
                                 <Card.Title>{message.text}</Card.Title>
                             </Card.Body>
-                        </Card>
+                        </Card><br></br>
                     </Container>
                 )
             })

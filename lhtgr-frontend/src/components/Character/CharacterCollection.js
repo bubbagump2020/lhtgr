@@ -2,15 +2,21 @@ import React from 'react'
 import { CharacterCard } from './CharacterCard'
 import {
     Container,
-    Card,
     CardGroup,
     Spinner
 } from 'react-bootstrap'
 
 import { useSelector } from 'react-redux'
 
+const scrollBox = {
+    overflow: 'auto',
+    height: '400px'
+}
+
 export function CharacterCollection(props){
     const { characters } = useSelector(state => ({ characters: state.characters }))
+
+    
     const createCharacterCards = () => {
         if(characters.length === 0){
             return(
@@ -25,8 +31,8 @@ export function CharacterCollection(props){
                 return characters.map(character => {
                     if(character.player_id === props.selectedPlayer.id){
                         return(
-                            <Container key={character.id} fluid>
-                                <CharacterCard character={character} />
+                            <Container key={character.id} fluid >
+                                <CharacterCard character={character} /><br></br>
                             </Container>
                         )
                     }
@@ -37,7 +43,7 @@ export function CharacterCollection(props){
     }
 
     return(
-        <Container fluid>
+        <Container fluid style={{backgroundColor: "cadetblue", scrollBox}}>
             <CardGroup>
                 {createCharacterCards()}
             </CardGroup>
