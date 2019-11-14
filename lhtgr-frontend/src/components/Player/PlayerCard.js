@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardGroup } from 'react-bootstrap';
+import { Card, CardGroup, Container } from 'react-bootstrap';
 
 export function PlayerCard(props) {
     const players = props.players
@@ -13,12 +13,14 @@ export function PlayerCard(props) {
             if(players.length !== 0){
                 return players.map(player => {
                     return(
-                        <Card key = {player.id} className="text-center">
-                            <Card.Header>{player.username}</Card.Header>
-                            <Card.Body>
-                                Player Info Here
-                            </Card.Body>
-                        </Card>
+                        <Container key={player.id} fluid>
+                            <Card className="text-center">
+                                <Card.Header>{player.username}</Card.Header>
+                                <Card.Body>
+                                    player information
+                                </Card.Body>
+                            </Card>
+                        </Container>
                     )
                 })
             }

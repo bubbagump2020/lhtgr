@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardGroup } from 'react-bootstrap'
+import { Card, CardGroup, Container } from 'react-bootstrap'
 
 export function CampaignCard(props){
     const campaigns = props.campaigns
@@ -16,12 +16,14 @@ export function CampaignCard(props){
         if(campaigns !== undefined){
             return campaigns.map(campaign => {
                 return(
-                    <Card key={campaign.id}>
-                        <Card.Header>{campaign.name}</Card.Header>
-                        <Card.Body>
-                            Campaign info here
-                        </Card.Body>
-                    </Card>
+                    <Container key={campaign.id} fluid>
+                        <Card className="text-center">
+                            <Card.Header>{campaign.name}</Card.Header>
+                            <Card.Body>
+                                Campaign info here
+                            </Card.Body>
+                        </Card>
+                    </Container>
                 )
             })
         }

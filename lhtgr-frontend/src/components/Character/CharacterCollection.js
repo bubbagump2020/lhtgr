@@ -1,43 +1,38 @@
 import React from 'react'
 import { CharacterCard } from './CharacterCard'
 import {
+    Container,
     Card,
     CardGroup,
     Spinner
 } from 'react-bootstrap'
-import { Container } from 'semantic-ui-react'
+
 import { useSelector } from 'react-redux'
 
 export function CharacterCollection(props){
-
-    const { changedCharacter } = useSelector(state => ({changedCharacter: state.character}))
-    console.log(changedCharacter)
-
+    const { characters } = useSelector(state => ({ characters: state.characters }))
     const createCharacterCards = () => {
-        if(props.characters.length === 0){
+        if(characters.length === 0){
             return(
                 <Spinner animation="grow"/>
             )
         } else {
-            return props.characters.map(character => {
-                if(character.player.id === props.currentPlayerId){
-                    return(
-                        <Container fluid>
-                            <Card key={character.id}>
-                                <CharacterCard character={character}/>
-                            </Card>
-                        </Container>
-                    )
-                } else if (character.id === changedCharacter.id){
-                    return(
-                        <Container fluid>
-                            <Card key={character.id}>
-                                <CharacterCard changedCharacter={changedCharacter} />
-                            </Card>
-                        </Container>
-                    )
-                }
-            })
+            if(props.players.length === 0){
+                return(
+                    <Spinner animation="grow" />
+                )
+            } else{
+                return characters.map(character => {
+                    if(character.player_id === props.selectedPlayer.id){
+                        return(
+                            <Container key={character.id} fluid>
+                                <CharacterCard character={character} />
+                            </Container>
+                        )
+                    }
+
+                })
+            }
         }
     }
 

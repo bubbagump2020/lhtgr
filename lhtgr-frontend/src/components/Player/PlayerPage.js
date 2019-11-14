@@ -15,14 +15,15 @@ import ConversationList from '../Chat/ConversationList'
 import CharacterFormNew from '../Character/CharacterFormNew'
 import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
-import { campaignArray, currentPlayerId, characterArray } from '../../redux/actions'
+import { campaignArray, currentPlayerId, characterArray, playerArray, player } from '../../redux/actions'
 import { EditCharacter } from '../Character/CharacterFormEdit'
 
 const PlayerPage = (props) => {
     const [ charactersState, setCharactersState ] = useState()
     const { characters } = useSelector (state => ({ characters: state.characters }) )
     const { campaigns } = useSelector (state => ({ campaigns: state.campaigns }))
-    const { currentPlayer } = useSelector (state => ({ currentPlayer: state.currentPlayer }) )
+    const { players } = useSelector(state => ({ players: state.players}))
+    const { currentPlayer } = useSelector (state => ({ currentPlayer: state.selectedPlayer }) )
 
     const dispatch = useDispatch()
 
@@ -30,8 +31,8 @@ const PlayerPage = (props) => {
         console.log(`New message incoming! ${newMessage}`)
     }
 
-
     useEffect(() => {
+        const playerId = parseInt(props.match.params.id)
         const token = localStorage.getItem('token')
         fetch(`http://localhost:3001/players/${props.match.params.id}`, {
             headers: {
@@ -40,11 +41,7 @@ const PlayerPage = (props) => {
         })
             .then( response => response.json() )
             .then( player => dispatch(currentPlayerId(player.id)))
-        fetch(`http://localhost:3001/characters`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        fetch(`http://localhost:3001/players/${props.match.params.id}/characters`)
             .then( response => response.json() )
             .then( characters => {
                 dispatch(characterArray(characters))
@@ -56,12 +53,26 @@ const PlayerPage = (props) => {
         })
             .then( response => response.json() )
             .then( campaigns => dispatch(campaignArray(campaigns)))
-    }, [props, dispatch])
+        fetch('http://localhost:3001/players', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                dispatch(playerArray(data))
+                data.map(thisPlayer => {
+                    if(thisPlayer.id === playerId){
+                        dispatch(player(thisPlayer))
+                    }
+                })
+            })
+    }, [])
 
     return(
         <Container fluid>
             <Navbar bg="light"expand="lg">
-                <Navbar.Brand >{`Welcome ${currentPlayer.currentPlayerName}`}</Navbar.Brand>
+                <Navbar.Brand >{`Welcome ${currentPlayer.username}`}</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto" navbar>
@@ -80,7 +91,7 @@ const PlayerPage = (props) => {
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
-                                    <CharacterFormNew campaigns={campaigns} />
+                                    <CharacterFormNew campaigns={campaigns} selectedPlayer={currentPlayer} />
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
@@ -93,7 +104,7 @@ const PlayerPage = (props) => {
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="1">
-                                <EditCharacter />
+                                <EditCharacter selectedPlayer={currentPlayer}/>
                             </Accordion.Collapse>
                         </Card>
                     </Accordion>
@@ -108,7 +119,7 @@ const PlayerPage = (props) => {
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
-                                    <CharacterCollection characters={characters} currentPlayerId={currentPlayer.currentPlayerId} />
+                                    <CharacterCollection characters={characters} players={players} selectedPlayer={currentPlayer} />
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>

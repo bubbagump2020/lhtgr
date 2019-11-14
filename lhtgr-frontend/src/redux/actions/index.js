@@ -1,4 +1,5 @@
 import { 
+    PLAYER,
     PLAYER_NAME,
     PLAYER_PASSWORD,
     CREATE_CAMPAIGN,
@@ -19,6 +20,11 @@ import {
     CHARACTER_RACE,
     CHARACTER_LEVEL,
     CHARACTER_ARRAY,
+    ADD_TO_PLAYER_ARRAY,
+    ADD_TO_CAMPAIGN_ARRAY,
+    ADD_TO_CHARACTER_ARRAY,
+    ADD_PLAYER_TO_CHARACTER,
+    ADD_CAMPAIGN_TO_CHARACTER,
     CHARACTER_CREATION_RESET,
     INCREMENT_STR,
     INCREMENT_DEX,
@@ -31,7 +37,8 @@ import {
     DECREMENT_CON,
     DECREMENT_INT,
     DECREMENT_WIS,
-    DECREMENT_CHA
+    DECREMENT_CHA,
+    DUNGEON_MASTER
 } from '../constants/action-types'
 
 export function playerName(payload){
@@ -44,6 +51,10 @@ export function playerPassword(payload){
 
 export function createCampaign(payload){
     return {type: CREATE_CAMPAIGN, payload}
+}
+
+export function campaign(payload){
+    return { type: CAMPAIGN, payload }
 }
 
 export function playerArray(payload){
@@ -60,6 +71,14 @@ export function currentDmPassword(payload){
 
 export function currentDmId(payload){
     return { type: CURRENT_DM_ID, payload }
+}
+
+export function player(payload){
+    return { type: PLAYER, payload }
+}
+
+export function dungeon_master(payload){
+    return { type: DUNGEON_MASTER, payload }
 }
 
 export function currentPlayer(payload){
@@ -84,6 +103,26 @@ export function campaignArray(payload){
 
 export function characterArray(payload){
     return { type: CHARACTER_ARRAY, payload }
+}
+
+export function addToCharacterArray(payload){
+    return { type: ADD_TO_CHARACTER_ARRAY, payload }
+}
+
+export function addToPlayerArray(payload){
+    return { type: ADD_TO_PLAYER_ARRAY, payload }
+}
+
+export function addToCampaignArray(payload){
+    return { type: ADD_TO_CAMPAIGN_ARRAY, payload }
+}
+
+export function addPlayerToCharacter(payload){
+    return { type: ADD_PLAYER_TO_CHARACTER, payload }
+}
+
+export function addCampaignToCharacter(payload){
+    return { type: ADD_CAMPAIGN_TO_CHARACTER, payload }
 }
 
 export function character(payload){
