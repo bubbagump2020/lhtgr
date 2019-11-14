@@ -185,7 +185,6 @@ export function EditCharacter (props){
     }
 
     const editCharacter = (event) => {
-        event.preventDefault()
         const token = localStorage.getItem('token')
         fetch(`http://localhost:3001/players/${props.selectedPlayer.id}/characters/${thisCharacter.id}`, {
             method: 'PUT',

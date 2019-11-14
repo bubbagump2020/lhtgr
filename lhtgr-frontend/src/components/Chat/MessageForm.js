@@ -28,12 +28,10 @@ const MessageForm = (props) => {
     return(
        <Container fluid>
            <Form onSubmit={handleSubmit}>
-                <Form.Row>
                     <Form.Group as={Col}>
                         <Form.Label>Send a Message!</Form.Label>
                         <Form.Control type="text" onChange={handleChange}/>
                     </Form.Group>
-                </Form.Row>
                 <Button type="submit">Send Message</Button>
            </Form>
        </Container> 

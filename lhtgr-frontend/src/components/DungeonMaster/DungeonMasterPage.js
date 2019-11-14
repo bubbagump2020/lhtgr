@@ -91,35 +91,35 @@ const DungeonMasterPage = (props) => {
     }
     
         return(
-            <Container fluid>
-                <Navbar bg="light" expand="lg">
-        <Navbar.Brand>{`Welcome Back, Dungeon Master ${dm.username}`}</Navbar.Brand>
+            <Container fluid align="center">
+                <Navbar style={{backgroundColor: "mediumseagreen"}} expand="lg">
+                    <Navbar.Brand style={{color: "bisque"}}>{`Welcome Back, Dungeon Master ${dm.username}`}</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <Nav.Link href="/">Logout</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
-                </Navbar>
+                </Navbar><br></br>
                 <Row>
                     <Col>
                         <Accordion>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as ={Button} variant="link" eventKey="0">
-                                        Create New Player
+                            <Card style={{backgroundColor: "cadetblue"}} border="dark">
+                                <Card.Header style={{backgroundColor: "darkcyan"}}>
+                                    <Accordion.Toggle as ={Button} variant="link" eventKey="0" style={{color: "bisque"}}>
+                                        <h3>Create New Player</h3>
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
-                                    <Card.Body>
+                                    <Card.Body style={{color: "bisque"}}>
                                         <Form onSubmit={handlePlayerCreation}>
                                             <Form.Group>
-                                                <Form.Label>Player Name</Form.Label>
+                                                <Form.Label><h4>Player Name</h4></Form.Label>
                                                 <Form.Control type="text" placeholder="Player Name" onChange={e => dispatch(playerName(e.target.value))}/>
                                                 <Form.Text>A new adventurer joins the party</Form.Text>
                                             </Form.Group>
                                             <Form.Group>
-                                                <Form.Label>Player Password</Form.Label>
+                                                <Form.Label><h4>Player Password</h4></Form.Label>
                                                 <Form.Control type="password" placeholder="Player Password" onChange={e => dispatch(playerPassword(e.target.value))}/>
                                                 <Form.Text>Make a ridculously hard password!</Form.Text>
                                             </Form.Group>
@@ -128,17 +128,17 @@ const DungeonMasterPage = (props) => {
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                        Create New Campaign
+                            <Card style={{backgroundColor: "cadetblue"}} border="dark">
+                                <Card.Header style={{backgroundColor: "darkcyan"}}>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="1" style={{color: "bisque"}}>
+                                        <h3>Create New Campaign</h3>
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="1">
-                                    <Card.Body>
+                                    <Card.Body style={{color: "bisque"}}>
                                         <Form onSubmit={handleCampaignCreation}>
                                             <Form.Group>
-                                                <Form.Label>Campaign Name</Form.Label>
+                                                <Form.Label><h3>Campaign Name</h3></Form.Label>
                                                 <Form.Control type="text" placeholder="Campaign Name" onChange={e => dispatch(campaign(e.target.value))}/>
                                                 <Form.Text>We're going on an adventure!</Form.Text>
                                             </Form.Group>
@@ -151,27 +151,27 @@ const DungeonMasterPage = (props) => {
                     </Col>
                     <Col>
                         <Accordion>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                        Current Players
+                            <Card style={{backgroundColor: "cadetblue"}} border="dark">
+                                <Card.Header style={{backgroundColor: "darkcyan"}}>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{color: "bisque"}}>
+                                        <h3>Current Players</h3>
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
-                                    <Card.Body> 
+                                    <Card.Body style={{color: "bisque"}}> 
                                         <PlayerCard players={players}/>
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
                         </Accordion>
                         <Accordion>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                        Campaigns
+                            <Card style={{backgroundColor: "cadetblue"}} border="dark">
+                                <Card.Header style={{backgroundColor: "darkcyan"}}>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="1" style={{color: "bisque"}}>
+                                        <h3>Campaigns</h3>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="1">
-                                        <Card.Body>
+                                        <Card.Body style={{color: "bisque"}}>
                                             < CampaignCard campaigns={campaigns}/>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -181,16 +181,16 @@ const DungeonMasterPage = (props) => {
                     </Col>
                     <Col>
                         <Accordion>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                        Chat
+                            <Card style={{backgroundColor: "cadetblue"}} border="dark">
+                                <Card.Header style={{backgroundColor: "darkcyan"}}>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{color: "bisque"}}>
+                                        <h3>Chat</h3>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="0">
-                                        <Card.Body>
+                                        <Card.Body style={{color: "bisque"}}>
                                             <MessageWindow />
                                             <Row>
-                                                <MessageForm />
+                                              <h4><MessageForm /></h4>  
                                             </Row>
                                         </Card.Body>
                                     </Accordion.Collapse>

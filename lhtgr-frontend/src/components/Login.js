@@ -60,34 +60,34 @@ export function Login(props) {
     }
 
     return(
-        <Container fluid>
+        <Container fluid style={{backgroundColor:"cadetblue"}}>
              <Col xs={12}>
                  <Row>
                     <Form onSubmit={loginDM}>
                         <Form.Group>
-                            <Form.Label>DM Name</Form.Label>
+                            <Form.Label style={{color: "bisque"}}><h3>DM Name</h3></Form.Label>
                             <Form.Control type="text" placeholder="Enter Name" onChange={e => dispatch(currentDmName(e.target.value))}/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" onChange={e => dispatch(currentDmPassword(e.target.value))}/>
+                            <Form.Label style={{color: "bisque"}}><h3>Password</h3></Form.Label>
+                            <Form.Control size="lg" type="password" placeholder="Password" onChange={e => dispatch(currentDmPassword(e.target.value))}/>
                         </Form.Group>
-                        <Button type="submit">DM Login</Button>
+                        <Button variant="secondary" type="submit" style={{color: "bisque"}}>DM Login</Button>
                     </Form>
-                 </Row>
+                 </Row><br></br>
                  <Row>
                     <Form onSubmit={loginPlayer}>
                         <Form.Group>
-                            <Form.Label>Player Name</Form.Label>
+                            <Form.Label style={{color: "bisque"}}><h3>Player Name</h3></Form.Label>
                             <Form.Control type="text" placeholder="Enter Name" onChange={e => dispatch(currentPlayerName(e.target.value))}/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" onChange={e => dispatch(currentPlayerPassword(e.target.value))}/>
+                            <Form.Label style={{color: "bisque"}}><h3>Password</h3></Form.Label>
+                            <Form.Control size="lg" type="password" placeholder="Password" onChange={e => dispatch(currentPlayerPassword(e.target.value))}/>
                         </Form.Group>
-                        <Button type="submit">Player Login</Button>
+                        <Button variant="secondary"  type="submit" style={{color: "bisque"}}>Player Login</Button>
                     </Form>
-                 </Row>
+                 </Row><br></br>
              </Col>
         </Container>        
     )

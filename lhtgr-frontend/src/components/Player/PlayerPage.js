@@ -20,7 +20,6 @@ import MessageForm from '../Chat/MessageForm'
 
 
 const PlayerPage = (props) => {
-    const [ charactersState, setCharactersState ] = useState()
     const { characters } = useSelector (state => ({ characters: state.characters }) )
     const { campaigns } = useSelector (state => ({ campaigns: state.campaigns }))
     const { players } = useSelector(state => ({ players: state.players}))
@@ -71,55 +70,57 @@ const PlayerPage = (props) => {
     }, [])
 
     return(
-        <Container fluid>
-            <Navbar bg="light"expand="lg">
-                <Navbar.Brand >{`Welcome ${currentPlayer.username}`}</Navbar.Brand>
+        <Container fluid align="center">
+            <Navbar style={{backgroundColor: "mediumseagreen"}} expand="lg">
+                <Navbar.Brand style={{color: "bisque"}}>{`Welcome ${currentPlayer.username}`}</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto" navbar>
                         <Nav.Link  href="/" >Logout</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar>
+            </Navbar><br></br>
             <Row>
                 <Col>
                     <Accordion>
-                        <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                    Create Character
+                        <Card style={{backgroundColor: "cadetblue"}} border="dark">
+                            <Card.Header style={{backgroundColor: "darkcyan"}}>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{color: "bisque"}}>
+                                    <h3>Create Character</h3>
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
-                                <Card.Body>
-                                    <CharacterFormNew campaigns={campaigns} selectedPlayer={currentPlayer} />
+                                <Card.Body style={{color: "bisque"}}>
+                                    <h4><CharacterFormNew campaigns={campaigns} selectedPlayer={currentPlayer} /></h4>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
                     </Accordion>
                     <Accordion>
-                        <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    Edit Character
+                        <Card style={{backgroundColor: "cadetblue"}} border="dark">
+                            <Card.Header style={{backgroundColor: "darkcyan"}}>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="1" style={{color: "bisque"}}>
+                                    <h3>Edit Character</h3>
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="1">
-                                <EditCharacter selectedPlayer={currentPlayer}/>
+                                <Card.Body style={{color: "bisque"}}>
+                                    <h4><EditCharacter selectedPlayer={currentPlayer}/></h4>
+                                </Card.Body>
                             </Accordion.Collapse>
                         </Card>
                     </Accordion>
                 </Col>
                 <Col>
                     <Accordion>
-                        <Card>
+                        <Card style={{backgroundColor: "darkcyan"}}>
                             <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                    Characters
+                                <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{color: "bisque"}}>
+                                    <h3>Characters</h3>
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
-                                <Card.Body>
+                                <Card.Body style={{color: "bisque", backgroundColor: "cadetblue"}} border="dark">
                                     <CharacterCollection characters={characters} players={players} selectedPlayer={currentPlayer} />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -127,23 +128,23 @@ const PlayerPage = (props) => {
                     </Accordion>
                 </Col>
                 <Col>
-                <Accordion>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                        Chat
-                                    </Accordion.Toggle>
-                                    <Accordion.Collapse eventKey="0">
-                                        <Card.Body>
-                                            <MessageWindow />
-                                            <Row>
-                                                <MessageForm />
-                                            </Row>
-                                        </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card.Header>
-                            </Card>
-                        </Accordion>
+                    <Accordion>
+                        <Card style={{backgroundColor: "darkcyan"}}>
+                            <Card.Header >
+                                <Accordion.Toggle as={Button} variant="link" eventKey="0" style={{color: "bisque"}}>
+                                    <h3>Chat</h3>
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body style={{color: "bisque", backgroundColor: "cadetblue"}}>
+                                        <MessageWindow />
+                                        <Row>
+                                            <h4><MessageForm /></h4>
+                                        </Row>
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Card.Header>
+                        </Card>
+                    </Accordion>
                 </Col>
             </Row>
         </Container>

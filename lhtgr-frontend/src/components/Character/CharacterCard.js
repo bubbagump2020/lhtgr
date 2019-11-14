@@ -6,43 +6,78 @@ import {
     Row
 } from 'react-bootstrap';
 
+
 export function CharacterCard(props){
     const character = props.character
+    
     return(
-        <Card border="dark" align="center">
-            <Card.Header>{character.name}</Card.Header>
+        <Card border="dark" align="center" style={{backgroundColor: "cadetblue", fontSize: "20px"}} >
+            <Card.Header style={{backgroundColor: "darkcyan", fontSize: "24px"}}>
+                {character.name}
+            </Card.Header>
             <Card.Body>
-                <Card.Text tag="h4">{character.race}</Card.Text>
-                <Card.Text tag="h4">{character.primary_class}, {character.level}</Card.Text>
+                <Card.Text>
+                   {character.race}
+                </Card.Text>
+                <Card.Text>
+                    {`${character.primary_class}`}
+                </Card.Text>
+                <Card.Text>
+                    {`Level: ${character.level}`}
+                </Card.Text>
                 <Container fluid align="center">
                     <Row>
                         <Col>
-                            Strength<br></br>
-                            {character.str}
+                            <Card.Text>
+                                Strength
+                            </Card.Text>
+                            <Card.Text>
+                                {`${character.str}`}
+                            </Card.Text>
                         </Col>
                         <Col>
-                            Dexterity<br></br>
-                            {character.dex}
+                            <Card.Text>
+                                Dexterity
+                            </Card.Text>
+                            <Card.Text>
+                                {`${character.dex}`}
+                            </Card.Text>
                         </Col>
-                    </Row>
+                    </Row><br></br>
                     <Row>
                         <Col>
-                            Constitution<br></br>
-                            {character.con}
+                            <Card.Text>
+                                Constitution
+                            </Card.Text>
+                            <Card.Text>
+                                {`${character.con}`}
+                            </Card.Text>
                         </Col>
                         <Col>
-                            Intelligence<br></br>
-                            {character.int}
+                            <Card.Text>
+                                Intelligence
+                            </Card.Text>
+                            <Card.Text>
+                                {`${character.int}`}
+                            </Card.Text>
                         </Col>
-                    </Row>
+                    </Row><br></br>
                     <Row>
                         <Col>
-                            Wisdom<br></br>
-                            {character.wis}
+                            <Card.Text>
+                                Wisdom
+                            </Card.Text>
+                            <Card.Text>
+                                {`${character.wis}`}
+                            </Card.Text>
                         </Col>
                         <Col>
-                            Charisma<br></br>
-                            {character.cha}
+                            <Card.Text>
+                                Charisma
+                            </Card.Text>
+                            <Card.Text>
+                                {`${character.cha}`}
+                            </Card.Text>
                         </Col>
                     </Row>
                 </Container>
