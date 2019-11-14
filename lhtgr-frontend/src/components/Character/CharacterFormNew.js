@@ -5,8 +5,6 @@ import {
     characterClass,
     characterRace,
     addToCharacterArray,
-    addPlayerToCharacter,
-    addCampaignToCharacter,
     selectCampaign, 
     incrementStr,
     incrementDex,
@@ -25,11 +23,7 @@ import { Container, Form, Button, Col } from 'react-bootstrap';
 
 const CharacterForm = (props) => {
     const { character } = useSelector(state => ({ character: state.character }) )
-    const { player } = useSelector(state => ({ player: state.selectedPlayer }))
     const campaigns = props.campaigns
-    const { characters } = useSelector(state => ({ characters: state.characters}))
-    // console.log(characters)
-    console.log(character)
     let { thisCampaign } = useSelector(state => ({ thisCampaign: state.campaign }) )
 
     const dispatch = useDispatch()
@@ -165,24 +159,11 @@ const CharacterForm = (props) => {
         }
     }
 
-    const dispatchToCharacter =() => {
-        campaigns.map(campaign => {
-            if(campaign.name === thisCampaign){
-                thisCampaign = campaign
-                dispatch(selectCampaign(thisCampaign))
-                dispatch(addCampaignToCharacter(thisCampaign))
-            }
-        })
-        
-        dispatch(addPlayerToCharacter(player))
-        // dispatch(addPlayerToCharacter(player))
-        // console.log(character)
-    }
-
     const createCharacter = (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
-        fetch('http://localhost:3001/characters', {
+        console.log(token)
+        fetch(`http://localhost:3001/players/${props.selectedPlayer.id}/characters`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -194,7 +175,7 @@ const CharacterForm = (props) => {
                 name: character.name,
                 primary_class: character.primary_class,
                 race: character.race,
-                // level: 1,
+                level: 1,
                 str: character.str,
                 dex: character.dex,
                 con: character.con,
@@ -205,30 +186,22 @@ const CharacterForm = (props) => {
         })
             .then(response => response.json())
             .then(character => {
-                
-                console.log(character)
                 dispatch(addToCharacterArray(character))
             })
-        
     }
-
-    
 
     return(
         <Container fluid>
             <Form  align="center" onSubmit={createCharacter}>
                 <Form.Row>
-                    {/* <Form.Group>
-                        <Button onClick={dispatchToCharacter}>Add player and Campaign to redux state</Button>
-                    </Form.Group> */}
                     <Form.Group as={Col}>
                         <Form.Label>Adventurer Name</Form.Label>
                         <Form.Control type="text" placeholder="Adventurer Name" onChange={e => dispatch(characterName(e.target.value))}/>
                     </Form.Group>
                     <Form.Group as={Col}>
                         <Form.Label>Adventurer Race</Form.Label>
-                        <Form.Control value={-1} as="select" onChange={e => dispatch(characterRace(e.target.value))}>
-                            <option disabled value={-1} key={-1}>Select Race</option>
+                        <Form.Control  as="select" onChange={e => dispatch(characterRace(e.target.value))}>
+                            <option>Select Race</option>
                             {races.map(race => {
                                 return(
                                     <option key={race.key}>{race.text}</option>
@@ -240,8 +213,8 @@ const CharacterForm = (props) => {
                 <Form.Row>
                     <Form.Group as={Col}>
                         <Form.Label>Adventure</Form.Label>
-                        <Form.Control value={-1} as="select" onChange={e => dispatch(selectCampaign(e.target.value))}>
-                            <option disabled value={-1} key={-1}>Select Adventure</option>
+                        <Form.Control as="select" onChange={e => dispatch(selectCampaign(e.target.value))}>
+                            <option>Select Adventure</option>
                             {campaigns.map(campaign => {
                                 return(
                                     <option key={campaign.id}>{campaign.name}</option>
@@ -251,8 +224,8 @@ const CharacterForm = (props) => {
                     </Form.Group>
                     <Form.Group as={Col}>
                         <Form.Label>Adventurer Class</Form.Label>
-                        <Form.Control as="select" value={-1} onChange={e =>dispatch(characterClass(e.target.value))}>
-                            <option disabled value={-1} key={-1}>Select Class</option>
+                        <Form.Control as="select" onChange={e =>dispatch(characterClass(e.target.value))}>
+                            <option>Select Class</option>
                             {classes.map(thisClass => {
                                 return(
                                     <option key={thisClass.key}>{thisClass.text}</option>

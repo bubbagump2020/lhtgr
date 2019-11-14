@@ -2,6 +2,7 @@ import * as actions from '../constants/action-types'
 
 const initialState = {
     selectedPlayer: {},
+    dungeonMaster: {},
     players: [],
     campaigns: [],
     characters: [],
@@ -42,6 +43,12 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             selectedPlayer: action.payload
+        }
+    }
+    if(action.type === actions.DUNGEON_MASTER){
+        return {
+            ...state,
+            dungeonMaster: action.payload
         }
     }
     if(action.type === actions.PLAYER_NAME){
@@ -214,6 +221,22 @@ function rootReducer(state = initialState, action) {
             ...state,
             characters: [
                 ...state.characters, action.payload
+            ]
+        }
+    }
+    if(action.type === actions.ADD_TO_PLAYER_ARRAY){
+        return {
+            ...state,
+            players: [
+                ...state.players, action.payload
+            ]
+        }
+    }
+    if(action.type === actions.ADD_TO_CAMPAIGN_ARRAY){
+        return {
+            ...state,
+            campaigns: [
+                ...state.campaigns, action.payload
             ]
         }
     }

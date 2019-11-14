@@ -19,15 +19,14 @@ import {
     decrementCon,
     decrementInt,
     decrementWis,
-    decrementCha
+    decrementCha,
 } from '../../redux/actions/index'
 
 export function EditCharacter (props){
     const { thisCharacter } = useSelector(state => ({ thisCharacter: state.character }) )
     const { characters } = useSelector(state => ({ characters: state.characters }) )
     const { thisCampaign } = useSelector(state => ({ thisCampaign: state.campaign }) )
-    const { currentPlayer } = useSelector(state => ({ currentPlayer: state.currentPlayer }) )
-
+    const { currentPlayer } = useSelector(state => ({ currentPlayer: state.selectedPlayer }) )
     const dispatch = useDispatch()
 
     const levels = [
@@ -188,14 +187,15 @@ export function EditCharacter (props){
     const editCharacter = (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
-        console.log(token)
-        fetch(`http://localhost:3001/characters/${thisCharacter.id}`, {
+        fetch(`http://localhost:3001/players/${props.selectedPlayer.id}/characters/${thisCharacter.id}`, {
             method: 'PUT',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
+                player_id: currentPlayer.id,
                 name: thisCharacter.name,
                 primary_class: thisCharacter.primary_class,
                 level: thisCharacter.level,
@@ -207,14 +207,15 @@ export function EditCharacter (props){
                 cha: thisCharacter.cha
             })
         })
-            .then(response => response.json())
+            .then(response => response.headers)
             .then(character => {
-                characters.map(changedCharacter => {
-                    if(changedCharacter.id === character.id){
-                        dispatch(updatedCharacter(character))
+                characters.map(editedCharacter => {
+                    if(editedCharacter.id === character.id){
+
+                        editedCharacter = character
+                        dispatch(updatedCharacter(editedCharacter))
                     }
                 })
-                dispatch(updatedCharacter(character))
             })
     }
 
@@ -227,9 +228,11 @@ export function EditCharacter (props){
                         <Form.Control as="select" value={-1} onChange={e => dispatch(character(selectedCharacter(e.target.value)))}>
                             <option disabled value={-1} key={-1}>Select Adventurer</option>
                             {characters.map(selectCharacter => {
-                                return(
-                                    <option key={selectCharacter.id}>{selectCharacter.name}</option>
-                                )
+                                if(selectCharacter.player_id === props.selectedPlayer.id){
+                                    return(
+                                        <option key={selectCharacter.id}>{selectCharacter.name}</option>
+                                    )
+                                }
                             })}
                         </Form.Control>
                     </Form.Group>
@@ -304,5 +307,4 @@ export function EditCharacter (props){
             </Form>
         </Container>
     )
-
 }

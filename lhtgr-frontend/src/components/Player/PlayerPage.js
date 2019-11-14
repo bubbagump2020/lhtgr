@@ -15,13 +15,14 @@ import ConversationList from '../Chat/ConversationList'
 import CharacterFormNew from '../Character/CharacterFormNew'
 import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
-import { campaignArray, currentPlayerId, characterArray, player } from '../../redux/actions'
+import { campaignArray, currentPlayerId, characterArray, playerArray, player } from '../../redux/actions'
 import { EditCharacter } from '../Character/CharacterFormEdit'
 
 const PlayerPage = (props) => {
     const [ charactersState, setCharactersState ] = useState()
     const { characters } = useSelector (state => ({ characters: state.characters }) )
     const { campaigns } = useSelector (state => ({ campaigns: state.campaigns }))
+    const { players } = useSelector(state => ({ players: state.players}))
     const { currentPlayer } = useSelector (state => ({ currentPlayer: state.selectedPlayer }) )
 
     const dispatch = useDispatch()
@@ -29,7 +30,6 @@ const PlayerPage = (props) => {
     const handleNewUserMessage = (newMessage) => {
         console.log(`New message incoming! ${newMessage}`)
     }
-
 
     useEffect(() => {
         const playerId = parseInt(props.match.params.id)
@@ -41,14 +41,9 @@ const PlayerPage = (props) => {
         })
             .then( response => response.json() )
             .then( player => dispatch(currentPlayerId(player.id)))
-        fetch(`http://localhost:3001/characters`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        fetch(`http://localhost:3001/players/${props.match.params.id}/characters`)
             .then( response => response.json() )
             .then( characters => {
-                // console.log(characters)
                 dispatch(characterArray(characters))
             })
         fetch(`http://localhost:3001/campaigns`, {
@@ -65,6 +60,7 @@ const PlayerPage = (props) => {
         })
             .then(response => response.json())
             .then(data => {
+                dispatch(playerArray(data))
                 data.map(thisPlayer => {
                     if(thisPlayer.id === playerId){
                         dispatch(player(thisPlayer))
@@ -108,7 +104,7 @@ const PlayerPage = (props) => {
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="1">
-                                <EditCharacter />
+                                <EditCharacter selectedPlayer={currentPlayer}/>
                             </Accordion.Collapse>
                         </Card>
                     </Accordion>
@@ -123,14 +119,14 @@ const PlayerPage = (props) => {
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
-                                    <CharacterCollection characters={characters} selectedPlayer={currentPlayer} />
+                                    <CharacterCollection characters={characters} players={players} selectedPlayer={currentPlayer} />
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
                     </Accordion>
                 </Col>
                 <Col>
-                    {/* <Widget handleNewUserMessage={handleNewUserMessage}/> */}
+                    <Widget handleNewUserMessage={handleNewUserMessage}/>
                 </Col>
             </Row>
         </Container>

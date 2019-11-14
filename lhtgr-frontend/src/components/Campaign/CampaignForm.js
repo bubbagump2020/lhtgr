@@ -28,7 +28,7 @@ class CampaignForm extends React.Component{
                 dungeon_master_id: document.cookie,
                 name: this.state.name,
             })
-        }).then(response => response.json()).then(data => console.log(data))
+        }).then(response => response.json())
     }
 
     render(){

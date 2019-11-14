@@ -20,6 +20,8 @@ import {
     CHARACTER_RACE,
     CHARACTER_LEVEL,
     CHARACTER_ARRAY,
+    ADD_TO_PLAYER_ARRAY,
+    ADD_TO_CAMPAIGN_ARRAY,
     ADD_TO_CHARACTER_ARRAY,
     ADD_PLAYER_TO_CHARACTER,
     ADD_CAMPAIGN_TO_CHARACTER,
@@ -35,7 +37,8 @@ import {
     DECREMENT_CON,
     DECREMENT_INT,
     DECREMENT_WIS,
-    DECREMENT_CHA
+    DECREMENT_CHA,
+    DUNGEON_MASTER
 } from '../constants/action-types'
 
 export function playerName(payload){
@@ -74,6 +77,10 @@ export function player(payload){
     return { type: PLAYER, payload }
 }
 
+export function dungeon_master(payload){
+    return { type: DUNGEON_MASTER, payload }
+}
+
 export function currentPlayer(payload){
     return { type: CURRENT_PLAYER, payload}
 }
@@ -100,6 +107,14 @@ export function characterArray(payload){
 
 export function addToCharacterArray(payload){
     return { type: ADD_TO_CHARACTER_ARRAY, payload }
+}
+
+export function addToPlayerArray(payload){
+    return { type: ADD_TO_PLAYER_ARRAY, payload }
+}
+
+export function addToCampaignArray(payload){
+    return { type: ADD_TO_CAMPAIGN_ARRAY, payload }
 }
 
 export function addPlayerToCharacter(payload){
