@@ -1,29 +1,67 @@
 import React, { useEffect, useState } from 'react'
 import { ActionCableConsumer } from 'react-actioncable-provider'
-import { Container } from 'react-bootstrap'
+import { Container, Card, Row } from 'react-bootstrap'
+import MessageForm from './MessageForm'
 
-const MessageWindow = props => {
+const windowScrollBox = {
+    overflow: 'auto',
+    height: '400px'
+}
 
-    const [ messages, setMessages ] = useState({ messages: [] })
-
-    useEffect(() => {
-        fetch('http://localhost:3001/messages')
-            .then(response => response.json())
-            .then(messages => setMessages(messages))
-    }, [])
-
-    const handleReceivedMessage = message => {
-        setMessages({ messages: [...messages, message ]})
+class MessageWindow extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            messages: []
+        }
     }
 
-    return(
-        <Container>
-            <ActionCableConsumer channel={{ channel: "MessagesChannel"}} onReceived={handleReceivedMessage}>
+    componentDidMount= () => {
+        fetch('http://localhost:3001/messages')
+            .then(response => response.json())
+            .then(messages => {
+                this.setState({ messages: messages })
+            })
+    }
 
-            </ActionCableConsumer>
-        </Container>
-    )
+    handleReceivedMessage = message => {
+        console.log(message)
+        this.setState({ messages: [...this.state.messages, message ]})
+    }
 
+    showMessages = () => {
+        if(this.state.messages.length === 0){
+            return(
+                <Container>
+                    Loading Messages
+                </Container>
+            )
+        } else {
+            return this.state.messages.map( message => {
+                return(
+                    <Container fluid >
+                        <Card key={message.id} >
+                            <Card.Body>
+                                <Card.Title>{message.text}</Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </Container>
+                )
+            })
+        }
+    }
+
+    render(){
+        return(
+            <div id="" style={windowScrollBox}>
+                <ActionCableConsumer channel={{ channel: "MessagesChannel"}} onReceived={this.handleReceivedMessage}>
+                    <Row>
+                        {this.showMessages()}
+                    </Row>
+                </ActionCableConsumer>
+            </div>
+        )
+    }
 }
 
 export default MessageWindow

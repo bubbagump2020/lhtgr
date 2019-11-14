@@ -14,6 +14,7 @@ import { PlayerCard } from '../Player/PlayerCard'
 import { CampaignCard } from '../Campaign/CampaignCard'
 import { useSelector, useDispatch } from 'react-redux'
 import MessageWindow from '../Chat/MessageWindow'
+import MessageForm from '../Chat/MessageForm'
 import { 
     addToPlayerArray, 
     addToCampaignArray, 
@@ -179,7 +180,23 @@ const DungeonMasterPage = (props) => {
                         </Accordion>
                     </Col>
                     <Col>
-                        <MessageWindow />
+                        <Accordion>
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                        Chat
+                                    </Accordion.Toggle>
+                                    <Accordion.Collapse eventKey="0">
+                                        <Card.Body>
+                                            <MessageWindow />
+                                            <Row>
+                                                <MessageForm />
+                                            </Row>
+                                        </Card.Body>
+                                    </Accordion.Collapse>
+                                </Card.Header>
+                            </Card>
+                        </Accordion>
                     </Col>
                 </Row>
             </Container>
@@ -187,3 +204,4 @@ const DungeonMasterPage = (props) => {
 }
 
 export default DungeonMasterPage;
+
