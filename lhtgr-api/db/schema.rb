@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_163537) do
+ActiveRecord::Schema.define(version: 2019_11_14_011347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 2019_10_29_163537) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "text"
+    t.bigint "player_id", null: false
+    t.bigint "dungeon_master_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dungeon_master_id"], name: "index_messages_on_dungeon_master_id"
+    t.index ["player_id"], name: "index_messages_on_player_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.bigint "dungeon_master_id"
     t.string "username"
@@ -58,4 +68,6 @@ ActiveRecord::Schema.define(version: 2019_10_29_163537) do
     t.index ["dungeon_master_id"], name: "index_players_on_dungeon_master_id"
   end
 
+  add_foreign_key "messages", "dungeon_masters"
+  add_foreign_key "messages", "players"
 end
