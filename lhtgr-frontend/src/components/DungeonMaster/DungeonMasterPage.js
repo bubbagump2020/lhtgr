@@ -13,7 +13,17 @@ import {
 import { PlayerCard } from '../Player/PlayerCard'
 import { CampaignCard } from '../Campaign/CampaignCard'
 import { useSelector, useDispatch } from 'react-redux'
-import { addToPlayerArray, addToCampaignArray, playerArray, campaignArray, playerName, playerPassword, campaign, dungeon_master } from '../../redux/actions/index'
+import MessageWindow from '../Chat/MessageWindow'
+import { 
+    addToPlayerArray, 
+    addToCampaignArray, 
+    playerArray, 
+    campaignArray, 
+    playerName, 
+    playerPassword, 
+    campaign, 
+    dungeon_master 
+} from '../../redux/actions/index'
 
 
 const DungeonMasterPage = (props) => {
@@ -169,7 +179,7 @@ const DungeonMasterPage = (props) => {
                         </Accordion>
                     </Col>
                     <Col>
-                        <h1>Chat</h1>
+                        <MessageWindow />
                     </Col>
                 </Row>
             </Container>

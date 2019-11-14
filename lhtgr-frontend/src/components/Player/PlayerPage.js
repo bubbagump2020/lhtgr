@@ -10,8 +10,6 @@ import {
     Row
     
 } from 'react-bootstrap'
-import { Widget } from 'react-chat-widget'
-import ConversationList from '../Chat/ConversationList'
 import CharacterFormNew from '../Character/CharacterFormNew'
 import { CharacterCollection } from '../Character/CharacterCollection'
 import { useSelector, useDispatch } from 'react-redux'
@@ -126,7 +124,7 @@ const PlayerPage = (props) => {
                     </Accordion>
                 </Col>
                 <Col>
-                    <Widget handleNewUserMessage={handleNewUserMessage}/>
+                    <h1>Chat</h1>
                 </Col>
             </Row>
         </Container>
